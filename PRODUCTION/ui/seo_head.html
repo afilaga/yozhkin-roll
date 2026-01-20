@@ -38,21 +38,62 @@
   },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "",
     "addressLocality": "Сочи",
     "addressRegion": "Краснодарский край",
-    "postalCode": "",
     "addressCountry": "RU"
   },
-  "geo": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": "43.5852",
-      "longitude": "39.7203"
+  "location": [
+    {
+      "@type": "Restaurant",
+      "name": "Ёжкин ролл (Адлер)",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Голубые Дали, 58/3",
+        "addressLocality": "Адлер",
+        "addressRegion": "Сочи",
+        "addressCountry": "RU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "43.451884",
+        "longitude": "39.906872"
+      }
     },
-    "description": "Зона обслуживания: Центральный Сочи, Адлер, Голубые Дали, Сириус"
-  },
+    {
+      "@type": "Restaurant",
+      "name": "Ёжкин ролл (Центральный)",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Воровского, 5",
+        "addressLocality": "Сочи",
+        "addressRegion": "Краснодарский край",
+        "addressCountry": "RU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "43.586577",
+        "longitude": "39.719636"
+      }
+    }
+  ],
+  "areaServed": [
+    {
+      "@type": "GeoCircle",
+      "description": "Красная зона: 200 ₽ (мин. заказ 1000 ₽)"
+    },
+    {
+      "@type": "GeoCircle",
+      "description": "Голубая зона: 300 ₽ (мин. заказ 1500 ₽)"
+    },
+    {
+      "@type": "GeoCircle",
+      "description": "Оранжевая зона: 400 ₽ (мин. заказ 2000 ₽)"
+    },
+    {
+      "@type": "GeoCircle",
+      "description": "Синяя зона: 450 ₽ (мин. заказ 2500 ₽)"
+    }
+  ],
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
