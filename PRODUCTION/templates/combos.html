@@ -120,7 +120,8 @@
         font-size: 18px;
         color: rgba(255, 255, 255, 0.9);
         line-height: 1.5;
-        max-width: 320px;
+        max-width: 100%;
+        /* Wider for flexible layouts */
     }
 
     .nova-card-btn-wrap {
@@ -316,7 +317,39 @@
 
     @media (max-width: 900px) {
         .nova-specials-container {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
+            /* 2 columns on mobile */
+            gap: 12px;
+        }
+
+        .nova-special-card {
+            padding: 24px 16px;
+            min-height: 380px;
+            border-radius: 20px;
+        }
+
+        .nova-special-card h3 {
+            font-size: 20px;
+        }
+
+        .nova-special-card p {
+            font-size: 13px;
+            line-height: 1.3;
+        }
+
+        .nova-card-badge {
+            padding: 4px 10px;
+            font-size: 11px;
+            margin-bottom: 12px;
+        }
+
+        .nova-card-btn-wrap {
+            margin-top: 20px;
+        }
+
+        .nova-card-btn-wrap .nova-hero-btn {
+            padding: 12px 20px !important;
+            font-size: 12px !important;
         }
 
         .nova-popup-window {
