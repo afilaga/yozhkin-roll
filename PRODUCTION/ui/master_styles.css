@@ -103,7 +103,9 @@ h3 {
     box-sizing: border-box !important;
 }
 
-/* 4.3 THE BUTTONS (Premium Gradient) */
+/* 4.3 THE BUTTONS (Aggressive Specificity) */
+.uc-nova-card .t-store__card__btn-wrapper .t-btn,
+.uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn,
 .uc-nova-card .t-store__card__btn,
 .uc-nova-card .js-store-prod-btn,
 .uc-nova-card a.t-btn[href="#order"] {
@@ -113,6 +115,7 @@ h3 {
     border: none !important;
     height: 54px !important;
     width: 100% !important;
+    min-width: 100% !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     font-size: 13px !important;
@@ -123,6 +126,7 @@ h3 {
     margin-top: 15px !important;
     transition: all 0.3s ease !important;
     outline: none !important;
+    box-sizing: border-box !important;
 }
 
 .uc-nova-card .t-store__card__btn:hover {
@@ -131,8 +135,13 @@ h3 {
     transform: translateY(-1px);
 }
 
-.uc-nova-card .t-store__card__btn_secondary {
+/* Secondary Button ("Description") - Forced White Style */
+.uc-nova-card .t-store__card__btn-wrapper .t-btn_secondary,
+.uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn_secondary,
+.uc-nova-card .t-store__card__btn_secondary,
+.uc-nova-card a.t-btn_secondary {
     background: #ffffff !important;
+    background-color: #ffffff !important;
     color: #ff7a00 !important;
     border: 0.2px solid #ff7a00 !important;
     box-shadow: none !important;
@@ -142,7 +151,14 @@ h3 {
     font-size: 13px !important;
     letter-spacing: 0.5px !important;
     height: 54px !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     outline: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
 }
 
 .uc-nova-card .t-store__card__btn_secondary:hover {
@@ -221,9 +237,14 @@ h3 {
         border-radius: 12px !important;
     }
 
+    /* More aggressive selectors for mobile too */
+    .uc-nova-card .t-store__card__btn-wrapper .t-btn,
+    .uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn,
     .uc-nova-card .t-store__card__btn,
     .uc-nova-card .js-store-prod-btn,
-    .uc-nova-card .t-store__card__btn_secondary {
+    .uc-nova-card .t-store__card__btn_secondary,
+    .uc-nova-card a.t-btn,
+    .uc-nova-card a.t-btn_secondary {
         height: 44px !important;
         font-size: 12px !important;
         border-radius: 10px !important;
@@ -231,14 +252,27 @@ h3 {
         padding: 0 8px !important;
         min-height: auto !important;
         outline: none !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
     }
 
-    .uc-nova-card .t-store__card__btn_secondary {
+    /* Forced Secondary Style for Mobile */
+    .uc-nova-card .t-store__card__btn-wrapper .t-btn_secondary,
+    .uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn_secondary,
+    .uc-nova-card .t-store__card__btn_secondary,
+    .uc-nova-card a.t-btn_secondary {
         background: #ffffff !important;
+        background-color: #ffffff !important;
         color: #ff7a00 !important;
         border: 0.2px solid #ff7a00 !important;
         box-shadow: none !important;
         font-weight: 600 !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
     }
 
     .uc-nova-card .t-store__card__mark-wrapper {
