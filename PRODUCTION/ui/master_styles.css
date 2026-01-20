@@ -65,6 +65,14 @@ h3 {
     line-height: 1.2 !important;
 }
 
+/* 3.1 SPECIFIC BLOCK FIXES */
+#rec1807660981 .t-title,
+#rec1807660981 h1 {
+    background: none !important;
+    -webkit-text-fill-color: #ff7a00 !important;
+    color: #ff7a00 !important;
+}
+
 /* 4. EZHKIN NOVA THEME V26 (PRODUCT CARDS) */
 /* 4.1 THE CARD - Visuals Only */
 .uc-nova-card .t-store__card {
@@ -123,13 +131,14 @@ h3 {
 }
 
 .uc-nova-card .t-store__card__btn_secondary {
-    background: #fff !important;
+    background: #ffffff !important;
     color: #ff7a00 !important;
-    border: 1px solid rgba(255, 122, 0, 0.4) !important;
+    border: 0.2px solid #ff7a00 !important;
     box-shadow: none !important;
     margin-top: 10px !important;
     transition: all 0.2s ease !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
 }
 
 .uc-nova-card .t-store__card__btn_secondary:hover {
@@ -220,10 +229,11 @@ h3 {
     }
 
     .uc-nova-card .t-store__card__btn_secondary {
-        background: #fff !important;
-        color: #666 !important;
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
+        background: #ffffff !important;
+        color: #ff7a00 !important;
+        border: 0.2px solid #ff7a00 !important;
         box-shadow: none !important;
+        font-weight: 500 !important;
     }
 
     .uc-nova-card .t-store__card__mark-wrapper {

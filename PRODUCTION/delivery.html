@@ -91,6 +91,13 @@
             .main-container {
                 grid-template-columns: 1fr;
                 height: auto;
+                padding: 10px 15px 40px;
+                gap: 20px;
+            }
+
+            .map-wrapper {
+                height: 450px;
+                margin-bottom: 20px;
             }
         }
 
@@ -120,17 +127,17 @@
         /* Search Overlay */
         .search-box {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.95);
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             z-index: 10;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .search-box input {
