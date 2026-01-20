@@ -103,13 +103,16 @@ h3 {
     box-sizing: border-box !important;
 }
 
-/* 4.3 THE BUTTONS (Aggressive Specificity) */
-.uc-nova-card .t-store__card__btn-wrapper .t-btn,
-.uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn,
-.uc-nova-card .t-store__card__btn,
-.uc-nova-card .js-store-prod-btn,
-.uc-nova-card a.t-btn[href="#order"] {
+/* 4.3 THE BUTTONS (Global Nuclear Override) */
+/* This targets ALL Tilda Store buttons even without .uc-nova-card class */
+[class*="t-store__card__btn-wrapper"] .t-btn,
+[class*="t-store__card__btn-wrapper"] .t-store__card__btn,
+.t-store__card__btn,
+.js-store-prod-btn,
+a.t-btn[href="#order"],
+a.t-btn_secondary[href*="prod-popup"] {
     background: linear-gradient(135deg, #ffb366 0%, #ff7a00 100%) !important;
+    background-color: #ff7a00 !important;
     color: #fff !important;
     border-radius: 12px !important;
     border: none !important;
@@ -127,19 +130,22 @@ h3 {
     transition: all 0.3s ease !important;
     outline: none !important;
     box-sizing: border-box !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
 }
 
-.uc-nova-card .t-store__card__btn:hover {
+[class*="t-store__card__btn"]:hover {
     background: linear-gradient(135deg, #ffad5c 0%, #ff851a 100%) !important;
     box-shadow: 0 6px 20px rgba(255, 122, 0, 0.3) !important;
     transform: translateY(-1px);
 }
 
-/* Secondary Button ("Description") - Forced White Style */
-.uc-nova-card .t-store__card__btn-wrapper .t-btn_secondary,
-.uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn_secondary,
-.uc-nova-card .t-store__card__btn_secondary,
-.uc-nova-card a.t-btn_secondary {
+/* Secondary Button ("Description") - Forced White Style Global */
+[class*="t-store__card__btn-wrapper"] .t-btn_secondary,
+[class*="t-store__card__btn-wrapper"] .t-store__card__btn_secondary,
+.t-store__card__btn_secondary,
+.t-btn_secondary,
+a.t-btn_secondary {
     background: #ffffff !important;
     background-color: #ffffff !important;
     color: #ff7a00 !important;
@@ -159,9 +165,10 @@ h3 {
     outline: none !important;
     -webkit-appearance: none !important;
     appearance: none !important;
+    box-sizing: border-box !important;
 }
 
-.uc-nova-card .t-store__card__btn_secondary:hover {
+.t-store__card__btn_secondary:hover {
     background: #fff8f2 !important;
     border-color: #ff7a00 !important;
     transform: translateY(-1px);
@@ -237,14 +244,14 @@ h3 {
         border-radius: 12px !important;
     }
 
-    /* More aggressive selectors for mobile too */
-    .uc-nova-card .t-store__card__btn-wrapper .t-btn,
-    .uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn,
-    .uc-nova-card .t-store__card__btn,
-    .uc-nova-card .js-store-prod-btn,
-    .uc-nova-card .t-store__card__btn_secondary,
-    .uc-nova-card a.t-btn,
-    .uc-nova-card a.t-btn_secondary {
+    /* More aggressive Global Nuclear selectors for mobile */
+    [class*="t-store__card__btn-wrapper"] .t-btn,
+    [class*="t-store__card__btn-wrapper"] .t-store__card__btn,
+    .t-store__card__btn,
+    .js-store-prod-btn,
+    .t-store__card__btn_secondary,
+    a.t-btn,
+    a.t-btn_secondary {
         height: 44px !important;
         font-size: 12px !important;
         border-radius: 10px !important;
@@ -260,11 +267,12 @@ h3 {
         box-sizing: border-box !important;
     }
 
-    /* Forced Secondary Style for Mobile */
-    .uc-nova-card .t-store__card__btn-wrapper .t-btn_secondary,
-    .uc-nova-card .t-store__card__btn-wrapper .t-store__card__btn_secondary,
-    .uc-nova-card .t-store__card__btn_secondary,
-    .uc-nova-card a.t-btn_secondary {
+    /* Forced Secondary Style Global for Mobile */
+    [class*="t-store__card__btn-wrapper"] .t-btn_secondary,
+    [class*="t-store__card__btn-wrapper"] .t-store__card__btn_secondary,
+    .t-store__card__btn_secondary,
+    .t-btn_secondary,
+    a.t-btn_secondary {
         background: #ffffff !important;
         background-color: #ffffff !important;
         color: #ff7a00 !important;
