@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доставка и оплата | Ёжкин ролл</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Yandex Maps API v2.1 -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=76c6dafd-ce2d-4895-a10b-e98de9678cf8&lang=ru_RU"
+        type="text/javascript"></script>
+
+    <style>
+        :root {
+            --primary: #ff7a00;
+            --primary-hover: #e66e00;
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f3f4f6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Nova Glass Background */
+        .page-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff5eb 0%, #ffffff 100%);
+            z-index: -1;
+        }
+
+        .header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px 60px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            height: calc(100vh - 120px);
+            min-height: 600px;
+        }
+
+        @media (max-width: 1100px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+        }
+
+        /* Map Styling */
+        .map-section {
+            position: relative;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            border-top-left-radius: 0;
+            /* Map takes full space */
+        }
+
+        /* Search Overlay */
+        .search-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+        }
+
+        /* Info Sidebar */
+        .info-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title svg {
+            color: var(--primary);
+        }
+
+        .price-badge {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .price-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .price-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .delivery-info-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .delivery-info-list li {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .icon-check {
+            color: #10b981;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Active Zone Info */
+        #active-zone-info {
+            display: none;
+        }
+
+        #active-zone-info.visible {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Map Tooltip Mockup */
+        .ymaps-2-1-79-balloon__content {
+            padding: 15px !important;
+            border-radius: 15px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-bg"></div>
+
+    <header class="header">
+        <a href="/" class="logo">
+            <span style="color: #000">Ёжкин</span> ролл
+        </a>
+        <div class="nav">
+            <!-- Navigation items if needed -->
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="search-box">
+                <input type="text" id="address-input" placeholder="Введите адрес доставки (напр. Сочи, ул. Мира 10)">
+                <button id="search-btn"
+                    style="background: var(--primary); color: #fff; border: none; padding: 0 25px; border-radius: 10px; font-weight: 600; cursor: pointer;">Найти</button>
+            </div>
+            <div id="map"></div>
+        </section>
+
+        <!-- Sidebar Section -->
+        <aside class="info-sidebar">
+            <!-- Dynamic Zone Card -->
+            <div id="active-zone-info" class="glass-card">
+                <div class="card-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    Ваша зона доставки
+                </div>
+                <div id="zone-details">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+
+            <!-- Static Info Card -->
+            <div class="glass-card">
+                <div class="card-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Условия доставки
+                </div>
+                <ul class="delivery-info-list">
+                    <li>
+                        <svg class="icon-check" width="16" height="16" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                        Бесплатный имбирь, васаби и соевый соус при каждом заказе!
+                    </li>
+                    <li>
+                        <svg class="icon-check" width="16" height="16" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                        СМС-оповещение о готовности и выезде курьера.
+                    </li>
+                    <li>
+                        <svg class="icon-check" width="16" height="16" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                        Среднее время доставки: 45-90 минут.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Shop Info -->
+            <div class="glass-card">
+                <div class="card-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Режим работы
+                </div>
+                <p style="font-size: 14px; color: var(--text-dark)">Ежедневно с 11:00 до 23:00</p>
+                <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Заказы на доставку принимаются до
+                    22:45</p>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            var myMap = new ymaps.Map("map", {
+                center: [43.43, 39.92], // Сириус/Адлер
+                zoom: 12,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            // Загрузка GeoJSON зон
+            fetch('https://raw.githubusercontent.com/afilaga/yozhkin-roll/main/PRODUCTION/delivery_zones.json')
+                .then(res => res.json())
+                .then(data => {
+                    var deliveryZones = ymaps.geoQuery(data).addToMap(myMap);
+
+                    // Стилизация зон
+                    deliveryZones.each(function (obj) {
+                        var props = obj.properties.getAll();
+                        obj.options.set({
+                            fillColor: props.fill || '#ed4543',
+                            fillOpacity: 0.4,
+                            strokeColor: props.stroke || '#ed4543',
+                            strokeWidth: 2,
+                            strokeOpacity: 0.8
+                        });
+
+                        // Клик по зоне
+                        obj.events.add('click', function (e) {
+                            showZoneInfo(props.description);
+                        });
+                    });
+
+                    // Поиск адреса
+                    document.getElementById('search-btn').onclick = function () {
+                        var address = document.getElementById('address-input').value;
+                        if (!address) return;
+
+                        ymaps.geocode(address).then(function (res) {
+                            var firstGeoObject = res.geoObjects.get(0);
+                            if (firstGeoObject) {
+                                var coords = firstGeoObject.geometry.getCoordinates();
+                                myMap.setCenter(coords, 14);
+
+                                // Проверка попадания в зону
+                                var result = deliveryZones.searchContain(coords).get(0);
+                                if (result) {
+                                    showZoneInfo(result.properties.get('description'));
+                                } else {
+                                    showZoneInfo("К сожалению, ваш адрес не входит в зону доставки.");
+                                }
+                            }
+                        });
+                    };
+                });
+        }
+
+        function showZoneInfo(desc) {
+            const infoBox = document.getElementById('active-zone-info');
+            const details = document.getElementById('zone-details');
+
+            // Парсинг цены и минималки из описания "Доставка 400р фиксированно\nМинимальная сумма заказа 1000р"
+            const priceMatch = desc.match(/доставка\s+(\d+)/i);
+            const minMatch = desc.match(/минимальная\s+сумма\s+заказа\s+(\d+)/i);
+
+            const price = priceMatch ? priceMatch[1] : null;
+            const min = minMatch ? minMatch[1] : null;
+
+            let html = '';
+            if (price) {
+                html += `
+                    <div class="price-badge">
+                        <span class="price-value">${price} ₽</span>
+                        <span class="price-label">Стоимость доставки</span>
+                    </div>
+                `;
+            }
+            if (min) {
+                html += `
+                    <div style="margin-top: 15px; font-size: 14px; text-align: center;">
+                        <span style="color: var(--text-muted)">Минимум для заказа:</span> 
+                        <span style="font-weight: 700">${min} ₽</span>
+                    </div>
+                `;
+            }
+            if (!price && !min) {
+                html = `<p style="font-size: 14px; color: var(--primary); text-align: center;">${desc}</p>`;
+            }
+
+            details.innerHTML = html;
+            infoBox.classList.add('visible');
+        }
+    </script>
+</body>
+
+</html>
