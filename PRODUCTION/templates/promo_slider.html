@@ -155,23 +155,71 @@
         }
 
         .nova-swiper {
-            padding-bottom: 40px !important;
+            padding: 10px 10px 40px !important;
+        }
+
+        .nova-promo-slide {
+            max-width: none;
+            /* Let Swiper handle width */
+        }
+
+        .promo-card-wrapper {
+            aspect-ratio: 1 / 1;
+            border-radius: 20px;
+        }
+
+        .promo-info-area {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        .promo-title {
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 4px;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .promo-composition {
+            display: none;
+            /* Hide to keep it clean */
+        }
+
+        .promo-price-tag {
+            bottom: unset;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            font-size: 14px;
+            border-radius: 10px;
+            background: #ff7a00;
+        }
+
+        .promo-btn-wrap {
+            display: none;
+            /* The whole card will be clickable via its container if needed, or we rely on the visual link */
+        }
+
+        /* Make the entire slide tappable by expanding the link if it exists */
+        .promo-card-wrapper a.promo-btn {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            z-index: 10;
         }
     }
 
     @media (max-width: 640px) {
-        .nova-promo-slide {
-            max-width: 85vw;
-        }
-
-        .promo-info-area {
-            padding: 24px;
-        }
-
-        .promo-title {
-            font-size: 20px;
-        }
-
         .promo-secondary-link {
             display: block;
             text-align: center;
@@ -219,6 +267,9 @@
                                     class="promo-btn">Заказать сет</a>
                             </div>
                         </div>
+                        <!-- Full card link for mobile -->
+                        <a href="https://yezhkin-roll.ru/menu/tproduct/145184914062-super-mega-hit" class="promo-btn"
+                            style="display: none; @media (max-width: 768px) { display: block; }"></a>
                     </div>
                 </div>
 
@@ -238,6 +289,8 @@
                                 <a href="https://yezhkin-roll.ru/menu" class="promo-btn">В меню</a>
                             </div>
                         </div>
+                        <a href="https://yezhkin-roll.ru/menu" class="promo-btn"
+                            style="display: none; @media (max-width: 768px) { display: block; }"></a>
                     </div>
                 </div>
 
@@ -257,6 +310,8 @@
                                 <a href="https://yezhkin-roll.ru/menu" class="promo-btn">Заказать праздник</a>
                             </div>
                         </div>
+                        <a href="https://yezhkin-roll.ru/menu" class="promo-btn"
+                            style="display: none; @media (max-width: 768px) { display: block; }"></a>
                     </div>
                 </div>
 
@@ -276,9 +331,9 @@
                                 <a href="https://yezhkin-roll.ru/menu/tproduct/303142731492-pyorishko-tori"
                                     class="promo-btn">Заказать сет</a>
                             </div>
-                            <a href="https://yezhkin-roll.ru/menu?cat=promo" class="promo-secondary-link">Смотреть все
-                                акции</a>
                         </div>
+                        <a href="https://yezhkin-roll.ru/menu/tproduct/303142731492-pyorishko-tori" class="promo-btn"
+                            style="display: none; @media (max-width: 768px) { display: block; }"></a>
                     </div>
                 </div>
 
@@ -290,6 +345,9 @@
                             <img src="https://static.tildacdn.com/tild6465-3566-4533-a135-336561366233/IMG_7666.webp"
                                 alt="Мидийный краш">
                         </div>
+                        <div class="nova-mi-img" style="display: none;"><img
+                                src="https://static.tildacdn.com/tild6465-3566-4533-a135-336561366233/IMG_7666.webp">
+                        </div>
                         <div class="promo-info-area">
                             <div class="promo-title">Мидийный краш (54 шт)</div>
                             <div class="promo-composition">Краб под шубой • Лосось под креветкой • Гринвуд • Запеченный
@@ -298,9 +356,9 @@
                                 <a href="https://yezhkin-roll.ru/menu/tproduct/399657120212-midiinii-krash-set"
                                     class="promo-btn">Заказать сет</a>
                             </div>
-                            <a href="https://yezhkin-roll.ru/menu?cat=promo" class="promo-secondary-link">Смотреть все
-                                акции</a>
                         </div>
+                        <a href="https://yezhkin-roll.ru/menu/tproduct/399657120212-midiinii-krash-set"
+                            class="promo-btn" style="display: none; @media (max-width: 768px) { display: block; }"></a>
                     </div>
                 </div>
 
@@ -320,12 +378,16 @@
                                 <a href="https://yezhkin-roll.ru/menu" class="promo-btn">Хочу скидку</a>
                             </div>
                         </div>
+                        <a href="https://yezhkin-roll.ru/menu" class="promo-btn"
+                            style="display: none; @media (max-width: 768px) { display: block; }"></a>
                     </div>
                 </div>
 
             </div>
 
             <div class="swiper-pagination"></div>
+            <!-- Secondary link for mobile -->
+            <a href="https://yezhkin-roll.ru/menu?cat=promo" class="promo-secondary-link">Смотреть все акции</a>
         </div>
     </div>
 </section>
@@ -333,9 +395,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const swiper = new Swiper('.nova-swiper', {
-            slidesPerView: 'auto',
+            slidesPerView: 2.15,
             centeredSlides: false,
-            spaceBetween: 24,
+            spaceBetween: 12,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
@@ -343,11 +405,11 @@
             breakpoints: {
                 768: {
                     slidesPerView: 2.5,
-                    centeredSlides: false,
+                    spaceBetween: 24,
                 },
                 1100: {
                     slidesPerView: 3,
-                    centeredSlides: false,
+                    spaceBetween: 24,
                 }
             }
         });
