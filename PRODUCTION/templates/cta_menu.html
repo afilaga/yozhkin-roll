@@ -142,11 +142,95 @@
 
         .nova-cta-container {
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 12px;
         }
 
         .cta-card {
-            height: 440px;
+            height: 72px;
+            /* Collapsed height */
+            padding: 15px 24px;
+            border-radius: 20px;
+            background: #1a1a1a;
+            justify-content: center;
+        }
+
+        .cta-card.is-expanded {
+            height: 480px;
+            /* Full height */
+            justify-content: flex-end;
+            padding: 30px;
+        }
+
+        .cta-card-bg {
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .cta-card.is-expanded .cta-card-bg {
+            opacity: 0.6;
+        }
+
+        .cta-card::after {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cta-card.is-expanded::after {
+            opacity: 1;
+        }
+
+        .cta-title {
+            font-size: 20px;
+            margin-bottom: 0;
+            transition: margin 0.3s ease;
+        }
+
+        .cta-card.is-expanded .cta-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .cta-description,
+        .cta-category,
+        .cta-mini-btn {
+            opacity: 0;
+            max-height: 0;
+            margin: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cta-card.is-expanded .cta-description,
+        .cta-card.is-expanded .cta-category,
+        .cta-card.is-expanded .cta-mini-btn {
+            opacity: 1;
+            max-height: 100px;
+            margin-bottom: 15px;
+        }
+
+        .cta-card.is-expanded .cta-mini-btn {
+            display: flex;
+            margin-bottom: 0;
+        }
+
+        /* Accordion Chevron Logic */
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            right: 24px;
+            top: 26px;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #ff7a00;
+            border-bottom: 2px solid #ff7a00;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            z-index: 3;
+        }
+
+        .cta-card.is-expanded::before {
+            transform: rotate(-135deg);
+            top: 30px;
         }
     }
 </style>
@@ -236,3 +320,33 @@
 
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.innerWidth > 768) return;
+
+        const cards = document.querySelectorAll('.cta-card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', function (e) {
+                // If the card is not expanded, prevent navigation and expand it
+                if (!this.classList.contains('is-expanded')) {
+                    e.preventDefault();
+
+                    // Collapse others
+                    cards.forEach(c => {
+                        if (c !== this) c.classList.remove('is-expanded');
+                    });
+
+                    this.classList.add('is-expanded');
+
+                    // Scroll into view if needed
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 300);
+                }
+                // If already expanded, let the default link behavior work
+            });
+        });
+    });
+</script>
