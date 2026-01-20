@@ -75,6 +75,7 @@
             font-weight: 800;
             background: linear-gradient(135deg, #ff7a00, #ff9d42);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1;
             margin-bottom: 10px;
@@ -145,17 +146,47 @@
             box-shadow: 0 15px 35px rgba(255, 122, 0, 0.35);
         }
 
-        /* Decorative rolls */
-        .roll {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #fff;
-            border-radius: 50%;
-            border: 5px solid #333;
-            box-shadow: inset 0 0 0 10px #ff7a00;
-            opacity: 0.1;
-            z-index: -1;
+        /* Media Queries for Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 30px;
+            }
+
+            .error-code {
+                font-size: 80px;
+            }
+
+            .illustration {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 15px;
+                margin-bottom: 25px;
+            }
+
+            .home-btn {
+                padding: 15px 30px;
+                font-size: 15px;
+                width: 100%;
+            }
+        }
+
+        /* Perspective for 3D effect */
+        body {
+            perspective: 1000px;
+        }
+
+        .container {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
         }
     </style>
 </head>
@@ -179,12 +210,21 @@
 
     <script>
         // Simple parallax for decorative elements
-        document.addEventListener('mousemove', (e) => {
-            const container = document.querySelector('.container');
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
-            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
+        const container = document.querySelector('.container');
+
+        // Only run parallax on desktop (mouse devices)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+                container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            // Reset transform when mouse leaves
+            document.addEventListener('mouseleave', () => {
+                container.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            });
+        }
     </script>
 </body>
 
