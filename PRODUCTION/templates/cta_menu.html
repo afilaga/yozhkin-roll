@@ -137,100 +137,119 @@
 
     @media (max-width: 768px) {
         .nova-cta-section {
-            padding: 40px 16px;
+            padding: 40px 10px;
         }
 
         .nova-cta-container {
-            grid-template-columns: 1fr;
-            gap: 12px;
+            display: flex;
+            height: 520px;
+            gap: 8px;
+            overflow: hidden;
+            border-radius: 24px;
         }
 
         .cta-card {
-            height: 72px;
-            /* Collapsed height */
-            padding: 15px 24px;
-            border-radius: 20px;
+            flex: 1;
+            height: 100%;
+            padding: 20px 10px;
+            border-radius: 12px;
             background: #1a1a1a;
             justify-content: center;
+            align-items: center;
+            min-width: 44px;
+            transition: flex 0.6s cubic-bezier(0.19, 1, 0.22, 1), background 0.4s ease;
         }
 
         .cta-card.is-expanded {
-            height: 480px;
-            /* Full height */
+            flex: 12;
             justify-content: flex-end;
-            padding: 30px;
+            align-items: flex-start;
+            padding: 30px 20px;
+            border-radius: 24px;
         }
 
         .cta-card-bg {
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            opacity: 0.3;
+            transition: opacity 0.5s ease;
         }
 
         .cta-card.is-expanded .cta-card-bg {
-            opacity: 0.6;
+            opacity: 0.8;
         }
 
         .cta-card::after {
             opacity: 0;
-            transition: opacity 0.4s ease;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
         }
 
         .cta-card.is-expanded::after {
             opacity: 1;
         }
 
+        .cta-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .cta-card.is-expanded .cta-content {
+            justify-content: flex-end;
+            align-items: flex-start;
+        }
+
         .cta-title {
             font-size: 20px;
-            margin-bottom: 0;
-            transition: margin 0.3s ease;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            white-space: nowrap;
+            margin: 0;
+            transition: all 0.4s ease;
         }
 
         .cta-card.is-expanded .cta-title {
-            font-size: 28px;
+            writing-mode: horizontal-tb;
+            transform: rotate(0deg);
+            font-size: 32px;
             margin-bottom: 10px;
         }
 
         .cta-description,
         .cta-category,
         .cta-mini-btn {
+            display: none;
             opacity: 0;
-            max-height: 0;
-            margin: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
         }
 
         .cta-card.is-expanded .cta-description,
-        .cta-card.is-expanded .cta-category,
-        .cta-card.is-expanded .cta-mini-btn {
+        .cta-card.is-expanded .cta-category {
+            display: block;
             opacity: 1;
-            max-height: 100px;
-            margin-bottom: 15px;
+            animation: fadeIn 0.4s ease forwards;
         }
 
         .cta-card.is-expanded .cta-mini-btn {
             display: flex;
-            margin-bottom: 0;
+            opacity: 1;
         }
 
-        /* Accordion Chevron Logic */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hide chevron in side accordion */
         .cta-card::before {
-            content: '';
-            position: absolute;
-            right: 24px;
-            top: 26px;
-            width: 10px;
-            height: 10px;
-            border-right: 2px solid #ff7a00;
-            border-bottom: 2px solid #ff7a00;
-            transform: rotate(45deg);
-            transition: transform 0.3s ease;
-            z-index: 3;
-        }
-
-        .cta-card.is-expanded::before {
-            transform: rotate(-135deg);
-            top: 30px;
+            display: none !important;
         }
     }
 </style>
@@ -327,25 +346,20 @@
 
         const cards = document.querySelectorAll('.cta-card');
 
+        // Expand first card by default for better visual lure
+        if (cards.length > 0) cards[0].classList.add('is-expanded');
+
         cards.forEach(card => {
             card.addEventListener('click', function (e) {
-                // If the card is not expanded, prevent navigation and expand it
                 if (!this.classList.contains('is-expanded')) {
                     e.preventDefault();
 
-                    // Collapse others
                     cards.forEach(c => {
                         if (c !== this) c.classList.remove('is-expanded');
                     });
 
                     this.classList.add('is-expanded');
-
-                    // Scroll into view if needed
-                    setTimeout(() => {
-                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 300);
                 }
-                // If already expanded, let the default link behavior work
             });
         });
     });
