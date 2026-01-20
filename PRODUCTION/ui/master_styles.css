@@ -69,8 +69,8 @@ h3 {
 #rec1807660981 .t-title,
 #rec1807660981 h1 {
     background: none !important;
-    -webkit-text-fill-color: #ff7a00 !important;
-    color: #ff7a00 !important;
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff !important;
 }
 
 /* 4. EZHKIN NOVA THEME V26 (PRODUCT CARDS) */
@@ -220,8 +220,8 @@ h3 {
     .uc-nova-card .t-store__card__btn,
     .uc-nova-card .js-store-prod-btn,
     .uc-nova-card .t-store__card__btn_secondary {
-        height: 34px !important;
-        font-size: 9px !important;
+        height: 40px !important;
+        font-size: 10px !important;
         border-radius: 8px !important;
         margin-top: 6px !important;
         padding: 0 4px !important;
