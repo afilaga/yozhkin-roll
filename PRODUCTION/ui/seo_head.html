@@ -76,22 +76,78 @@
       }
     }
   ],
-  "areaServed": [
+  "makesOffer": [
     {
-      "@type": "GeoCircle",
-      "description": "Красная зона: 200 ₽ (мин. заказ 1000 ₽)"
+      "@type": "Offer",
+      "priceSpecification": {
+        "@type": "DeliveryChargeSpecification",
+        "appliesToDeliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet",
+        "price": "200",
+        "priceCurrency": "RUB",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "price": "1000",
+          "priceCurrency": "RUB"
+        },
+        "eligibleRegion": {
+          "@type": "GeoCircle",
+          "description": "Красная зона Сочи/Адлер"
+        }
+      }
     },
     {
-      "@type": "GeoCircle",
-      "description": "Голубая зона: 300 ₽ (мин. заказ 1500 ₽)"
+      "@type": "Offer",
+      "priceSpecification": {
+        "@type": "DeliveryChargeSpecification",
+        "appliesToDeliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet",
+        "price": "300",
+        "priceCurrency": "RUB",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "price": "1500",
+          "priceCurrency": "RUB"
+        },
+        "eligibleRegion": {
+          "@type": "GeoCircle",
+          "description": "Голубая зона Сочи/Адлер"
+        }
+      }
     },
     {
-      "@type": "GeoCircle",
-      "description": "Оранжевая зона: 400 ₽ (мин. заказ 2000 ₽)"
+      "@type": "Offer",
+      "priceSpecification": {
+        "@type": "DeliveryChargeSpecification",
+        "appliesToDeliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet",
+        "price": "400",
+        "priceCurrency": "RUB",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "price": "2000",
+          "priceCurrency": "RUB"
+        },
+        "eligibleRegion": {
+          "@type": "GeoCircle",
+          "description": "Оранжевая зона Сочи/Адлер"
+        }
+      }
     },
     {
-      "@type": "GeoCircle",
-      "description": "Синяя зона: 450 ₽ (мин. заказ 2500 ₽)"
+      "@type": "Offer",
+      "priceSpecification": {
+        "@type": "DeliveryChargeSpecification",
+        "appliesToDeliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet",
+        "price": "450",
+        "priceCurrency": "RUB",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "price": "2500",
+          "priceCurrency": "RUB"
+        },
+        "eligibleRegion": {
+          "@type": "GeoCircle",
+          "description": "Синяя зона Сочи/Адлер"
+        }
+      }
     }
   ],
   "openingHoursSpecification": [
