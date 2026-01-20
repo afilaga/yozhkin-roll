@@ -1,0 +1,301 @@
+<!-- NOVA FOOTER V4 (Rich Dark Edition) -->
+<style>
+    .nova-footer-wrapper {
+        position: relative;
+        width: 100%;
+        background-color: #111;
+        /* Deep Rich Black */
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        color: #fff;
+        font-family: 'Outfit', sans-serif;
+        overflow: hidden;
+        padding: 100px 20px 60px;
+        box-sizing: border-box;
+    }
+
+    /* Dramatic Accent Glows */
+    .nova-footer-glow-1 {
+        position: absolute;
+        top: -200px;
+        right: -100px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(255, 122, 0, 0.12) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .nova-footer-glow-2 {
+        position: absolute;
+        bottom: -150px;
+        left: -100px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255, 122, 0, 0.08) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .magic-glass-container {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 48px;
+        padding: 60px;
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+    }
+
+    .nova-footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1.5fr 1fr;
+        gap: 40px;
+    }
+
+    .footer-logo-area {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .magic-logo {
+        height: 54px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: brightness(0) invert(1);
+        /* White logo for dark theme */
+        transition: transform 0.3s ease;
+    }
+
+    .footer-col-title {
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #ff7a00;
+        margin-bottom: 28px;
+    }
+
+    .magic-nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .magic-link {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .magic-link:hover {
+        color: #fff;
+        transform: translateX(6px);
+    }
+
+    .contact-block {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 30px;
+    }
+
+    .contact-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 1.5px;
+    }
+
+    .contact-phone {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .contact-phone:hover {
+        color: #ff7a00;
+    }
+
+    .contact-address {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .contact-address:hover {
+        color: #fff;
+    }
+
+    .socials-area {
+        display: flex;
+        gap: 14px;
+    }
+
+    .magic-social-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .magic-social-btn:hover {
+        background: #ff7a00;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(255, 122, 0, 0.3);
+        border-color: #ff7a00;
+    }
+
+    .magic-social-btn svg {
+        width: 22px;
+        height: 22px;
+        fill: #fff;
+    }
+
+    .nova-footer-bottom {
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Yandex Badge Inversion */
+    .yandex-iframe {
+        border: 0;
+        filter: grayscale(1) invert(1) brightness(1.5);
+        opacity: 0.8;
+        transition: 0.3s;
+    }
+
+    .yandex-iframe:hover {
+        filter: none;
+        opacity: 1;
+    }
+
+    @media (max-width: 1024px) {
+        .nova-footer-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .magic-glass-container {
+            padding: 40px 24px;
+            border-radius: 32px;
+        }
+
+        .nova-footer-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .nova-footer-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .nova-footer-wrapper {
+            padding: 40px 20px;
+        }
+    }
+</style>
+
+<footer class="nova-footer-wrapper">
+    <div class="nova-footer-glow-1"></div>
+    <div class="nova-footer-glow-2"></div>
+
+    <div class="magic-glass-container">
+        <div class="nova-footer-grid">
+            <!-- Brand Area -->
+            <div class="footer-logo-area">
+                <img src="https://static.tildacdn.com/tild3939-3438-4066-b837-653234386331/noroot.png" alt="Logo"
+                    class="magic-logo">
+                <p style="font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6;">Ёжкин ролл —
+                    гастрономическая история Сириуса и Сочи. Готовим с любовью с 2018 года.</p>
+
+                <div style="margin-top: 15px;">
+                    <iframe class="yandex-iframe"
+                        src="https://yandex.ru/sprav/widget/rating-badge/53914245041?type=award" width="150"
+                        height="50"></iframe>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="footer-col">
+                <div class="footer-col-title">Компания</div>
+                <nav class="magic-nav-list">
+                    <a href="https://yezhkin-roll.ru/#rec1805093951" class="magic-link">Акции</a>
+                    <a href="https://yezhkin-roll.ru/menu" class="magic-link">Меню</a>
+                    <a href="https://yezhkin-roll.ru/#rec1805303601" class="magic-link">Бизнес-ланчи</a>
+                    <a href="https://yezhkin-roll.ru/#rec1806945851" class="magic-link">Бонусы</a>
+                    <a href="https://yezhkin-roll.ru/delivery" class="magic-link">Доставка</a>
+                </nav>
+            </div>
+
+            <!-- Contacts -->
+            <div class="footer-col">
+                <div class="footer-col-title">Связаться</div>
+                <div class="contact-block">
+                    <span class="contact-label">Центральный Сочи</span>
+                    <a href="tel:+79388787438" class="contact-phone">+7 938 878-74-38</a>
+                </div>
+                <div class="contact-block">
+                    <span class="contact-label">Адлер / Голубые дали</span>
+                    <a href="tel:+79384899919" class="contact-phone">+7 938 489-99-19</a>
+                </div>
+            </div>
+
+            <!-- Socials -->
+            <div class="footer-col">
+                <div class="footer-col-title">Будьте с нами</div>
+                <div class="socials-area">
+                    <a href="https://t.me/yezhkin_roll" class="magic-social-btn" target="_blank">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.27.27-.47.27l.196-2.91 5.297-4.78c.23-.204-.05-.318-.357-.114l-6.547 4.12-2.82-.88c-.613-.19-.624-.613.128-.907l11.03-4.25c.51-.19.957.114.81.907z" />
+                        </svg>
+                    </a>
+                    <a href="https://vk.com/yezhkin_roll" class="magic-social-btn" target="_blank">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M13.162 18.994c-5.674 0-8.913-3.888-9.052-10.354h2.84c.09 4.75 2.188 6.76 3.847 7.175V8.64h2.677v4.095c1.64-.175 3.36-2.04 3.94-4.095h2.677c-.446 2.53-2.31 4.394-3.64 5.16 1.33.62 3.454 2.247 4.262 5.234h-2.946c-.632-1.97-2.21-3.494-4.293-3.702v3.7c-.16 0-3.3z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nova-footer-bottom">
+            <span>© 2026 Ёжкин ролл. Готовим как для своих.</span>
+            <span>ИП Степчук П.В. | ИНН 519052145243</span>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,345 @@
+<!-- NOVA LOYALTY (Tezo Rich Edition) -->
+<style>
+    .nova-loyalty-section {
+        padding: 100px 20px;
+        background: #111;
+        /* Deep Dark to match footer */
+        color: #fff;
+        font-family: 'Outfit', sans-serif;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Ambient Background Elements */
+    .nova-loyalty-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(255, 122, 0, 0.08) 0%, transparent 70%);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .nova-loyalty-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        z-index: 0;
+    }
+
+    .nova-loyalty-container {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 80px;
+        align-items: center;
+    }
+
+    /* Text Content */
+    .loyalty-text-area {
+        padding-left: 20px;
+    }
+
+    .loyalty-title {
+        margin-bottom: 40px;
+        color: #fff !important;
+        /* Override global h2 color */
+    }
+
+    .loyalty-title span {
+        color: #ff7a00;
+    }
+
+    .loyalty-features {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 50px;
+    }
+
+    .feature-item {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .feature-icon {
+        width: 54px;
+        height: 54px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #ff7a00;
+    }
+
+    .feature-content h4 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 8px;
+    }
+
+    .feature-content p {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Mega Card Visual */
+    .loyalty-card-visual {
+        position: relative;
+        perspective: 1000px;
+    }
+
+    .magic-card {
+        width: 100%;
+        max-width: 440px;
+        aspect-ratio: 1.6 / 1;
+        background: linear-gradient(135deg, #1e1e1e 0%, #0a0a0a 100%);
+        border-radius: 28px;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(255, 122, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        transform-style: preserve-3d;
+    }
+
+    .magic-card:hover {
+        transform: rotateY(10deg) rotateX(5deg);
+    }
+
+    .card-glow {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .card-logo {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: brightness(0) invert(1);
+    }
+
+    .card-balance {
+        margin-top: 20px;
+    }
+
+    .balance-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .balance-value {
+        font-size: 48px;
+        font-weight: 800;
+        color: #fff;
+    }
+
+    .balance-currency {
+        color: #ff7a00;
+        font-size: 32px;
+        margin-left: 4px;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .card-holder {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 1px;
+    }
+
+    /* Mega Button */
+    .loyalty-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: #ff7a00;
+        color: #fff !important;
+        text-decoration: none;
+        padding: 24px 44px;
+        border-radius: 20px;
+        font-size: 16px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+        box-shadow: 0 20px 40px rgba(255, 122, 0, 0.2);
+    }
+
+    .loyalty-btn:hover {
+        background: #ff912a;
+        transform: translateY(-4px);
+        box-shadow: 0 30px 60px rgba(255, 122, 0, 0.3);
+    }
+
+    /* Adaptivity */
+    @media (max-width: 1024px) {
+        .nova-loyalty-container {
+            grid-template-columns: 1fr;
+            gap: 60px;
+            text-align: center;
+        }
+
+        .feature-item {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .loyalty-text-area {
+            padding: 0;
+        }
+
+        .magic-card {
+            margin: 0 auto;
+        }
+
+        .loyalty-features {
+            justify-items: center;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .nova-loyalty-section {
+            padding: 40px 20px;
+        }
+
+        .loyalty-title {
+            font-size: 36px;
+        }
+
+        .loyalty-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .magic-card {
+            padding: 30px;
+        }
+
+        .balance-value {
+            font-size: 36px;
+        }
+    }
+</style>
+
+<section class="nova-loyalty-section" id="loyalty">
+    <div class="nova-loyalty-glow"></div>
+    <div class="nova-loyalty-grid"></div>
+
+    <div class="nova-loyalty-container">
+        <!-- Content -->
+        <div class="loyalty-text-area">
+            <h2 class="loyalty-title">ЕШЬ <span style="color: #ff7a00;">БОЛЬШЕ</span>,<br>ПЛАТИ МЕНЬШЕ</h2>
+
+            <div class="loyalty-features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <span style="font-size: 24px; font-weight: 800;">₽</span>
+                    </div>
+                    <div class="feature-content">
+                        <h4>500 ₽ в подарок</h4>
+                        <p>Начислим сразу на бонусный счет при регистрации в нашем Telegram-боте.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3v8.5z" />
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Кэшбэк 5%</h4>
+                        <p>Копите баллы с каждого заказа&nbsp;и используйте их для оплаты любимых блюд.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Оплачивайте до 30%</h4>
+                        <p>Тратьте бонусы начиная со второго заказа. Выгода доступна всегда.</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://t.me/yezhkin_roll_bot" class="loyalty-btn" target="_blank">
+                Получить 500 бонусных рублей в Telegram
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Visual -->
+        <div class="loyalty-card-visual">
+            <div class="magic-card">
+                <div class="card-glow"></div>
+                <img src="https://static.tildacdn.com/tild3939-3438-4066-b837-653234386331/noroot.png" alt="Logo"
+                    class="card-logo">
+                <div class="card-balance">
+                    <span class="balance-label">Ваш приветственный баланс</span>
+                    <div class="balance-value">500<span class="currency">₽</span></div>
+                </div>
+                <div class="card-footer">
+                    <span class="card-holder">BONUS CARD</span>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3;">
+                        <rect x="2" y="5" width="20" height="14" rx="2" />
+                        <line x1="2" y1="10" x2="22" y2="10" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

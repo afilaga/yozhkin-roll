@@ -1,0 +1,238 @@
+<!-- NOVA CTA GRID (Dark Rich Edition - 5 Cards) -->
+<style>
+    .nova-cta-section {
+        padding: 80px 20px;
+        background: #fdfdfd;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .nova-cta-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+    }
+
+    .cta-card {
+        position: relative;
+        height: 520px;
+        border-radius: 40px;
+        overflow: hidden;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 30px;
+        background: #111;
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .cta-card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.8;
+        transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        z-index: 0;
+    }
+
+    .cta-card:hover .cta-card-bg {
+        transform: scale(1.1);
+        opacity: 0.95;
+    }
+
+    /* Strengthened Dark Overlay for Maximum Readability */
+    .cta-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.1) 40%,
+                rgba(0, 0, 0, 0.6) 70%,
+                rgba(0, 0, 0, 0.95) 100%);
+        z-index: 1;
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .cta-category {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #ffa14a;
+        /* Lighter vivid orange */
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .cta-title {
+        font-size: 30px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 10px;
+        line-height: 1.1;
+    }
+
+    .cta-description {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 20px;
+        line-height: 1.4;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .cta-mini-btn {
+        width: 44px;
+        height: 44px;
+        background: #ff7a00;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+    }
+
+    .cta-card:hover .cta-mini-btn {
+        transform: rotate(-45deg) scale(1.1);
+        box-shadow: 0 0 20px rgba(255, 122, 0, 0.4);
+    }
+
+    .cta-mini-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 3;
+    }
+
+    /* Adaptivity */
+    @media (max-width: 1200px) {
+        .nova-cta-container {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 800px) {
+        .nova-cta-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .nova-cta-section {
+            padding: 40px 16px;
+        }
+
+        .nova-cta-container {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .cta-card {
+            height: 440px;
+        }
+    }
+</style>
+
+<section class="nova-cta-section" id="menu-grid">
+    <div class="nova-cta-container">
+
+        <!-- ROLLS -->
+        <a href="https://yezhkin-roll.ru/menu?cat=rolls" class="cta-card">
+            <img src="https://static.tildacdn.com/tild3534-6232-4138-a332-633766383962/cta_rolls_cover_1768.png"
+                alt="Rolls" class="cta-card-bg">
+            <div class="cta-content">
+                <span class="cta-category">70+ видов</span>
+                <div class="cta-title">Роллы</div>
+                <div class="cta-description">От классики до безумных авторских хитов. От 219 ₽.</div>
+                <div class="cta-mini-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- PIZZA -->
+        <a href="https://yezhkin-roll.ru/menu?cat=pizza" class="cta-card">
+            <img src="https://static.tildacdn.com/tild3430-3063-4035-b939-303262353532/cta_pizza_cover_1768.png"
+                alt="Pizza" class="cta-card-bg">
+            <div class="cta-content">
+                <span class="cta-category">Классика и крафт</span>
+                <div class="cta-title">Пицца</div>
+                <div class="cta-description">На тонком тесте с богатой начинкой. От 695 ₽.</div>
+                <div class="cta-mini-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- BOWLS -->
+        <a href="https://yezhkin-roll.ru/menu?cat=bowls" class="cta-card">
+            <img src="https://static.tildacdn.com/tild6665-6363-4135-b738-626563396664/cta_bowls_cover_1768.png"
+                alt="Bowls" class="cta-card-bg">
+            <div class="cta-content">
+                <span class="cta-category">Здоровая еда</span>
+                <div class="cta-title">Боулы</div>
+                <div class="cta-description">Поке и боулы. Собери свой идеальный баланс вкуса.</div>
+                <div class="cta-mini-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- WOK -->
+        <a href="https://yezhkin-roll.ru/menu?cat=wok" class="cta-card">
+            <img src="https://static.tildacdn.com/tild3931-3733-4834-a139-393863353534/cta_wok_cover_176884.png"
+                alt="Wok" class="cta-card-bg">
+            <div class="cta-content">
+                <span class="cta-category">Конструктор</span>
+                <div class="cta-title">Вок</div>
+                <div class="cta-description">Лапша и рис. Огромный выбор дополнительных ингредиентов.</div>
+                <div class="cta-mini-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- ALL MENU -->
+        <a href="https://yezhkin-roll.ru/menu" class="cta-card">
+            <img src="https://static.tildacdn.com/tild3761-3662-4862-b265-643635653862/cta_full_menu_cover_.png"
+                alt="All Menu" class="cta-card-bg">
+            <div class="cta-content">
+                <span class="cta-category">Полный каталог</span>
+                <div class="cta-title">Смотрите всё меню</div>
+                <div class="cta-description">Более 170+ позиций. Сеты, горячее, супы и многое другое.</div>
+                <div class="cta-mini-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</section>

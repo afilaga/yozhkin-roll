@@ -1,0 +1,334 @@
+<!-- NOVA PROMOTIONS (Square Swiper Edition) -->
+<!-- Load Swiper CSS/JS if not already loaded -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<style>
+    .nova-promo-section {
+        padding: 80px 0;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .nova-promo-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+    }
+
+    .nova-promo-header {
+        margin-bottom: 50px;
+    }
+
+    .nova-swiper {
+        padding: 20px 10px 80px !important;
+    }
+
+    .nova-promo-slide {
+        width: 100%;
+        max-width: 400px;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .promo-card-wrapper {
+        border-radius: 32px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .promo-img-area {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        background: #f9f9f9;
+    }
+
+    .promo-img-area img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.6s ease;
+    }
+
+    .nova-promo-slide:hover .promo-img-area img {
+        transform: scale(1.05);
+    }
+
+    .promo-price-tag {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: #ff7a00;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 16px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 800;
+        font-size: 20px;
+        box-shadow: 0 8px 20px rgba(255, 122, 0, 0.3);
+        z-index: 5;
+    }
+
+    .promo-info-area {
+        padding: 30px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .promo-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        margin: 0 0 12px;
+        text-transform: uppercase;
+        color: #111;
+    }
+
+    .promo-composition {
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        color: #888;
+        line-height: 1.5;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        min-height: 60px;
+    }
+
+    .promo-btn-wrap {
+        margin-top: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .promo-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background: #f5f5f5;
+        color: #ff7a00 !important;
+        /* Fixed orange color for button text */
+        text-decoration: none;
+        padding: 18px 30px;
+        border-radius: 18px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        transition: 0.3s;
+        text-align: center;
+    }
+
+    .promo-btn:hover {
+        background: #eeeeee;
+        transform: translateY(-2px);
+    }
+
+    /* Custom Dots */
+    .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        background: #ddd !important;
+        opacity: 1 !important;
+        transition: 0.3s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+        width: 24px;
+        border-radius: 4px;
+        background: #ff7a00 !important;
+    }
+
+    @media (max-width: 768px) {
+        .nova-promo-section {
+            padding: 40px 0;
+        }
+
+        .nova-swiper {
+            padding-bottom: 40px !important;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .nova-promo-slide {
+            max-width: 85vw;
+        }
+
+        .promo-info-area {
+            padding: 24px;
+        }
+
+        .promo-title {
+            font-size: 20px;
+        }
+    }
+</style>
+
+<section class="nova-promo-section" id="promos">
+    <div class="nova-promo-container">
+        <div class="nova-promo-header">
+            <h2 class="t-section__title t-title t-title_xs t-align_center t-margin_auto" style="text-align: center;">
+                Акции&nbsp;и скидки на&nbsp;роллы в&nbsp;Сочи
+            </h2>
+        </div>
+
+        <div class="swiper nova-swiper">
+            <div class="swiper-wrapper">
+
+                <!-- Slide 1: Супер мегахит -->
+                <div class="swiper-slide nova-promo-slide">
+                    <div class="promo-card-wrapper">
+                        <div class="promo-img-area">
+                            <div class="promo-price-tag">1099 ₽</div>
+                            <img src="https://static.tildacdn.com/tild3939-6437-4364-b035-613632613832/IMG_7670.JPG"
+                                alt="Супер мегахит">
+                        </div>
+                        <div class="promo-info-area">
+                            <div class="promo-title">Супер мегахит (38 шт)</div>
+                            <div class="promo-composition">Запеченный цезарь • Тори чиз • Тори маки • Чип кранч • Тори
+                                спайси кранч</div>
+                            <div class="promo-btn-wrap">
+                                <a href="https://yezhkin-roll.ru/menu/tproduct/145184914062-super-mega-hit"
+                                    class="promo-btn">Заказать сет</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Скидка 10% на самовывоз -->
+                <div class="swiper-slide nova-promo-slide">
+                    <div class="promo-card-wrapper">
+                        <div class="promo-img-area">
+                            <div class="promo-price-tag">-10%</div>
+                            <img src="https://static.tildacdn.com/tild3062-6161-4438-b237-393530396337/promo_pickup_v2_bg_1.png"
+                                alt="Скидка на самовывоз">
+                        </div>
+                        <div class="promo-info-area">
+                            <div class="promo-title">Скидка на самовывоз</div>
+                            <div class="promo-composition">Забирайте заказ самостоятельно&nbsp;и получайте скидку 10%
+                                на&nbsp;всё меню</div>
+                            <div class="promo-btn-wrap">
+                                <a href="https://yezhkin-roll.ru/menu" class="promo-btn">В меню</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Скидка 15% ко дню рождения -->
+                <div class="swiper-slide nova-promo-slide">
+                    <div class="promo-card-wrapper">
+                        <div class="promo-img-area">
+                            <div class="promo-price-tag">-15%</div>
+                            <img src="https://static.tildacdn.com/tild3162-6364-4437-b664-376163373065/promo_birthday_v2_bg.png"
+                                alt="Скидка ко дню рождения">
+                        </div>
+                        <div class="promo-info-area">
+                            <div class="promo-title">День рождения с нами</div>
+                            <div class="promo-composition">Скидка 15% именинникам! Действует в&nbsp;день рождения&nbsp;и
+                                3&nbsp;дня после</div>
+                            <div class="promo-btn-wrap">
+                                <a href="https://yezhkin-roll.ru/menu" class="promo-btn">Заказать праздник</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Пёрышко тори -->
+                <div class="swiper-slide nova-promo-slide">
+                    <div class="promo-card-wrapper">
+                        <div class="promo-img-area">
+                            <div class="promo-price-tag">1899 ₽</div>
+                            <img src="https://static.tildacdn.com/tild3831-3662-4664-a539-323536326562/IMG_7664.webp"
+                                alt="Пёрышко тори">
+                        </div>
+                        <div class="promo-info-area">
+                            <div class="promo-title">Пёрышко тори (54 шт)</div>
+                            <div class="promo-composition">Перышко тори • Лось да окунь • Чикен белз • Запеченный с
+                                угрём • Гринлось • Окунь • Цезарь кранч</div>
+                            <div class="promo-btn-wrap">
+                                <a href="https://yezhkin-roll.ru/menu/tproduct/303142731492-pyorishko-tori"
+                                    class="promo-btn">Заказать сет</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Мидийный краш -->
+                <div class="swiper-slide nova-promo-slide">
+                    <div class="promo-card-wrapper">
+                        <div class="promo-img-area">
+                            <div class="promo-price-tag">1899 ₽</div>
+                            <img src="https://static.tildacdn.com/tild6465-3566-4533-a135-336561366233/IMG_7666.webp"
+                                alt="Мидийный краш">
+                        </div>
+                        <div class="promo-info-area">
+                            <div class="promo-title">Мидийный краш (54 шт)</div>
+                            <div class="promo-composition">Краб под шубой • Лосось под креветкой • Гринвуд • Запеченный
+                                с мидиями • С угрём • Тори спайси кранч</div>
+                            <div class="promo-btn-wrap">
+                                <a href="https://yezhkin-roll.ru/menu/tproduct/399657120212-midiinii-krash-set"
+                                    class="promo-btn">Заказать сет</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Скидка 5% за подписку -->
+                <div class="swiper-slide nova-promo-slide">
+                    <div class="promo-card-wrapper">
+                        <div class="promo-img-area">
+                            <div class="promo-price-tag">-5%</div>
+                            <img src="https://static.tildacdn.com/tild6166-6132-4164-b561-373939623631/promo_social_v2_bg_1.png"
+                                alt="Скидка за подписку">
+                        </div>
+                        <div class="promo-info-area">
+                            <div class="promo-title">Дружить выгодно</div>
+                            <div class="promo-composition">Подпишитесь на наши соцсети и получите скидку 5% на ваш заказ
+                            </div>
+                            <div class="promo-btn-wrap">
+                                <a href="https://yezhkin-roll.ru/menu" class="promo-btn">Хочу скидку</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper('.nova-swiper', {
+            slidesPerView: 'auto',
+            centeredSlides: false,
+            spaceBetween: 24,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2.5,
+                    centeredSlides: false,
+                },
+                1100: {
+                    slidesPerView: 3,
+                    centeredSlides: false,
+                }
+            }
+        });
+    });
+</script>

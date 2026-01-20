@@ -1,0 +1,175 @@
+<style>
+    /* === FILTER WIDGET STYLES === */
+    :root {
+        --ez-orange: #ff7a00;
+    }
+
+    .cf-header {
+        position: sticky;
+        top: 0;
+        z-index: 3900;
+        padding: 10px 0;
+        background: transparent;
+    }
+
+    .cf-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        width: 94%;
+        max-width: 1240px;
+        margin: 0 auto;
+    }
+
+    .cf-pill {
+        padding: 10px 22px;
+        background: rgba(255, 255, 255, 0.95);
+        color: #444;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .cf-pill.active {
+        background: var(--ez-orange);
+        color: #fff;
+        border-color: var(--ez-orange);
+    }
+
+    .cf-pill:hover {
+        transform: translateY(-2px);
+    }
+
+    .cf-subs-wrap {
+        width: 94%;
+        max-width: 1240px;
+        margin: 12px auto 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+    .cf-subs-wrap.visible {
+        height: auto;
+        opacity: 1;
+        padding-bottom: 15px;
+    }
+
+    .cf-pill-sm {
+        padding: 8px 18px;
+        font-size: 13px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        color: #666;
+        border-radius: 99px;
+        cursor: pointer;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .cf-pill-sm.active {
+        background: var(--ez-orange);
+        color: #fff;
+        border-color: var(--ez-orange);
+    }
+
+    .t396__filter {
+        display: none !important;
+    }
+</style>
+
+<div id="cf-app"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const DATA_SET = (k, v) => { try { localStorage.setItem(k, v) } catch (e) { } };
+        const DATA_GET = (k) => { try { return localStorage.getItem(k) } catch (e) { return null } };
+        const ROLLS_SUB = ['rec1798101721', 'rec1798106801', 'rec1798109041', 'rec1798111201', 'rec1798114891', 'rec1798116751', 'rec1798120811', 'rec1798127341', 'rec1798131341', 'rec1798133861'];
+
+        const APP_DATA = [
+            { id: 'promo', label: 'Акции', blocks: ['rec1798031241'] },
+            { id: 'combo', label: 'Комбо', blocks: ['rec1798093151'] },
+            { id: 'sets', label: 'Сеты', blocks: ['rec1798100441'] },
+            { id: 'sushi', label: 'Суши', blocks: ['rec1798100901'] },
+            {
+                id: 'rolls', label: 'Роллы',
+                subs: [
+                    { id: 'all', label: 'Все', blocks: ROLLS_SUB },
+                    { id: 'classical', label: 'Классика', blocks: [ROLLS_SUB[0]] },
+                    { id: 'maki', label: 'Маки', blocks: [ROLLS_SUB[1]] },
+                    { id: 'baked', label: 'Запечённые', blocks: [ROLLS_SUB[5]] },
+                    { id: 'tempura', label: 'Темпурные', blocks: [ROLLS_SUB[4]] },
+                    { id: 'soft', label: 'Тёплые', blocks: [ROLLS_SUB[3]] },
+                    { id: 'american', label: 'Американские', blocks: [ROLLS_SUB[2]] },
+                    { id: 'norice', label: 'Без риса', blocks: [ROLLS_SUB[6]] },
+                    { id: 'spicy', label: 'Острые', blocks: [ROLLS_SUB[7]] },
+                    { id: 'futo', label: 'Футомаки', blocks: [ROLLS_SUB[8]] },
+                    { id: 'uro', label: 'Уромаки', blocks: [ROLLS_SUB[9]] }
+                ]
+            },
+            { id: 'pizza', label: 'Пицца', blocks: ['rec1798135361'] },
+            { id: 'wok', label: 'Вок', blocks: ['rec1798139711'] },
+            { id: 'bowls', label: 'Поке', blocks: ['rec1798142361'] },
+            { id: 'soup', label: 'Супы', blocks: ['rec1798143841'] },
+            { id: 'hot', label: 'Горячее', blocks: ['rec1798148091'] },
+            { id: 'salads', label: 'Салаты', blocks: ['rec1798165511'] },
+            { id: 'snacks', label: 'Закуски', blocks: ['rec1798173611'] },
+            { id: 'vegan', label: 'Веган', blocks: ['rec1798174671'] },
+            { id: 'kids', label: 'Детское', blocks: ['rec1798180971'] },
+            { id: 'desserts', label: 'Десерты', blocks: ['rec1798184541'] },
+            { id: 'drinks', label: 'Напитки', blocks: ['rec1798186981'] },
+            { id: 'sauces', label: 'Соусы', blocks: ['rec1798190101'] }
+        ];
+
+        // Priority: 1. URL Parameter (?cat=ID) | 2. LocalStorage | 3. Default (First item)
+        const urlParams = new URLSearchParams(window.location.search);
+        let activeCatId = urlParams.get('cat') || DATA_GET('cf_cat');
+
+        if (!activeCatId || !APP_DATA.find(c => c.id === activeCatId)) activeCatId = APP_DATA[0].id;
+        let activeSubId = null;
+
+        const updateVisibility = () => {
+            const allIds = new Set();
+            APP_DATA.forEach(c => { if (c.blocks) c.blocks.forEach(id => allIds.add(id)); if (c.subs) c.subs.forEach(s => s.blocks.forEach(id => allIds.add(id))); });
+            allIds.forEach(id => { const el = document.getElementById(id); if (el) { el.style.display = 'none'; el.style.opacity = '0'; } });
+
+            const catObj = APP_DATA.find(c => c.id === activeCatId);
+            let targetIds = (activeSubId && catObj.subs) ? (catObj.subs.find(s => s.id === activeSubId)?.blocks || []) : (catObj.blocks || []);
+
+            targetIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) { el.style.display = 'block'; setTimeout(() => el.style.opacity = '1', 10); }
+            });
+            setTimeout(() => { if (window.t_lazyload_update) t_lazyload_update(); window.dispatchEvent(new Event('resize')); }, 100);
+        };
+
+        const render = () => {
+            const root = document.getElementById('cf-app'); if (!root) return;
+            const cat = APP_DATA.find(c => c.id === activeCatId) || APP_DATA[0];
+            if (cat.subs && (!activeSubId || !cat.subs.find(s => s.id === activeSubId))) activeSubId = cat.subs[0].id;
+
+            root.innerHTML = `
+        <div class="cf-header">
+            <div class="cf-row">${APP_DATA.map(c => `<div class="cf-pill ${activeCatId === c.id ? 'active' : ''}" onclick="CF_Cat('${c.id}')">${c.label}</div>`).join('')}</div>
+            <div class="cf-subs-wrap ${cat.subs ? 'visible' : ''}">${cat.subs ? cat.subs.map(s => `<div class="cf-pill-sm ${activeSubId === s.id ? 'active' : ''}" onclick="CF_Sub('${s.id}')">${s.label}</div>`).join('') : ''}</div>
+        </div>`;
+        };
+
+        window.CF_Cat = (id) => { activeCatId = id; activeSubId = null; DATA_SET('cf_cat', id); render(); updateVisibility(); };
+        window.CF_Sub = (id) => { activeSubId = id; render(); updateVisibility(); };
+
+        render(); updateVisibility();
+    });
+</script>

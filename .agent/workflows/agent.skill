@@ -1,0 +1,91 @@
+---
+name: Yezhkin Roll Project Context
+description: Knowledge base, Architecture, and Block Map for the "Clean Filter v3.2" Tilda implementation.
+version: 1.0.0
+owner: Andrey Filatiev
+---
+
+# 🍱 Yezhkin Roll: Project Overview
+
+> **Current State (Jan 2026):**
+> We have moved from "Nova App" (Complex SPA) to **"Clean Filter v3.2"** (Lightweight Tilda Native).
+> The site functions as a Single Page Application (SPA) visually, but uses standard Tilda blocks controlled by a custom script.
+
+---
+
+## 🏗 Architecture: Clean Filter v3.2
+
+### Core Logic
+1.  **Sticky Header**: Custom JS renders a horizontal scroll menu (Chips) at `top: 0`.
+2.  **Visibility Engine**:
+    *   Script forces `display: none` on ALL mapped product blocks on load.
+    *   When a user clicks a category (e.g., "Pizza"), script toggles `display: block` ONLY for target blocks.
+    *   **Result**: Instant switching, no scroll jumping.
+3.  **Data Source**: Configuration is hardcoded in the `simple_filter.html` script (Variable `APP_DATA`).
+
+### Key Files
+*   `nova app/simple_filter.html` -> **The Source of Truth**. Contains the logic and the ID map.
+*   `nova app/Список страниц.ini` -> Reference list of IDs.
+
+---
+
+## 🗺 Tilda Block Map (Production)
+
+Use these IDs when configuring the script or debugging visibility.
+
+### 🔴 Root Categories
+| Content | Block ID |
+| :--- | :--- |
+| **🔥 Акции** | `rec1798031241` |
+| **⚡ Комбо** | `rec1798093151` |
+| **🍱 Сеты** | `rec1798100441` |
+| **🍣 Суши & Гунканы** | `rec1798100901` |
+| **🍕 Пицца** | `rec1798135361` |
+| **🍜 Вок** | `rec1798139711` |
+| **🥗 Боулы / Поке** | `rec1798142361` |
+| **🍲 Супы** | `rec1798143841` |
+| **🍖 Горячее** | `rec1798148091` |
+| **🥬 Салаты** | `rec1798165511` |
+| **🍟 Закуски** | `rec1798173611` |
+| **🌱 Веган** | `rec1798174671` |
+| **👶 Детское** | `rec1798180971` |
+| **🍰 Десерты** | `rec1798184541` |
+| **🥤 Напитки** | `rec1798186981` |
+| **🥣 Соусы** | `rec1798190101` |
+
+### 🍣 Rolls Sub-System
+*Parent Category: "Роллы"*
+
+| Sub-Category | Block ID |
+| :--- | :--- |
+| **Классика** | `rec1798101721` |
+| **Маки** | `rec1798106801` |
+| **Американские** | `rec1798109041` |
+| **Тёплые** | `rec1798111201` |
+| **Темпурные** | `rec1798114891` |
+| **Запечённые** | `rec1798116751` |
+| **Без риса (VIP)** | `rec1798120811` |
+| **Острые** | `rec1798127341` |
+| **Футомаки** | `rec1798131341` |
+| **Уромаки** | `rec1798133861` |
+
+---
+
+## 🛠 Maintenance Guide
+
+### 1. How to add a new Category?
+1.  **Duplicate** an existing Product Block in Tilda.
+2.  **Get ID**: Go to Settings -> Scroll Down -> Copy Block ID (e.g., `rec999999`).
+3.  **Update Script**:
+    *   Open `nova app/simple_filter.html`.
+    *   Add to `APP_DATA` array:
+        ```javascript
+        { id: 'new_cat', label: 'New Name', blocks: ['rec999999'] }
+        ```
+4.  **Publish**: Copy code to Tilda T123 block -> Publish Page.
+
+### 2. Troubleshooting
+*   **Problem:** Button works, but page is empty.
+    *   **Fix:** Check if the Block ID in Tilda matches the ID in `simple_filter.html`.
+*   **Problem:** Page scrolls down when clicking.
+    *   **Fix:** Ensure Clean Filter logic is running and preventing default anchor behavior.

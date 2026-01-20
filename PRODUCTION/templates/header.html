@@ -1,0 +1,507 @@
+<!-- NOVA GLASS HEADER (UPDATED v5 - "PROXY CLICK" FIX) -->
+<style>
+    /* HEADER STYLES */
+    .nova-header-container {
+        position: fixed;
+        top: 15px;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        pointer-events: none;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    /* Reset box-sizing */
+    .nova-header-container * {
+        box-sizing: border-box;
+    }
+
+    .nova-nav {
+        width: 94%;
+        max-width: 1240px;
+        margin: 0 auto;
+        pointer-events: auto;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 999px;
+        padding: 8px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Logo */
+    .nova-logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .nova-logo img {
+        height: 40px;
+        width: auto;
+        transition: 0.3s;
+    }
+
+    .nova-logo:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Central Menu */
+    .nova-menu {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+
+    .nova-link {
+        text-decoration: none;
+        color: #4b5563;
+        padding: 10px 18px;
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: 0.3s;
+        font-family: 'Inter', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .nova-link:hover,
+    .nova-link.active {
+        background: rgba(255, 122, 0, 0.1);
+        color: #ff7a00;
+    }
+
+    /* Right Actions Area */
+    .nova-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    /* Working Hours */
+    .nova-hours-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #666;
+        border-right: 1px solid #eee;
+        height: 24px;
+    }
+
+    .nova-hours-badge svg {
+        color: #ff7a00;
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Contacts Dropdown */
+    .nova-contacts-wrap {
+        position: relative;
+    }
+
+    .nova-contact-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 122, 0, 0.1);
+        color: #ff7a00;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .nova-contact-btn:hover {
+        background: #ff7a00;
+        color: #fff;
+    }
+
+    .nova-contact-dropdown {
+        position: absolute;
+        top: 120%;
+        right: 0;
+        width: 280px;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        padding: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nova-contacts-wrap:hover .nova-contact-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nova-contact-item {
+        display: block;
+        padding: 12px;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .nova-contact-item:hover {
+        background: #f9f9f9;
+    }
+
+    .nova-contact-title {
+        font-size: 12px;
+        color: #999;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .nova-contact-phone {
+        font-size: 16px;
+        color: #333;
+        font-weight: 700;
+        display: block;
+    }
+
+    /* Icons Buttons */
+    .nova-icon-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: 0.3s;
+        flex-shrink: 0;
+    }
+
+    .nova-icon-btn:hover {
+        background: rgba(0, 0, 0, 0.05);
+        transform: translateY(-2px);
+    }
+
+    .nova-icon-btn img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+
+    .nova-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background: #ff7a00;
+        color: white;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border: 2px solid #fff;
+        display: none;
+    }
+
+    /* Mobile Burger */
+    .nova-burger {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    /* Mobile Menu Overlay */
+    .nova-mobile-menu {
+        display: none;
+        position: absolute;
+        top: 75px;
+        left: 4%;
+        width: 92%;
+        max-width: 400px;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 20px;
+        border-radius: 20px;
+        flex-direction: column;
+        gap: 12px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        pointer-events: auto;
+        z-index: 10000;
+    }
+
+    .nova-mobile-menu.open {
+        display: flex;
+        animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nova-mob-link {
+        font-size: 17px;
+        font-weight: 600;
+        color: #333;
+        text-decoration: none;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Mobile Contact Blocks */
+    .nova-mob-contacts {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 10px;
+    }
+
+    .nova-mob-loc {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .nova-mob-loc span {
+        font-size: 12px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .nova-mob-loc a {
+        font-size: 16px;
+        font-weight: 700;
+        color: #ff7a00;
+        text-decoration: none;
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 1100px) {
+        .nova-hours-badge {
+            display: none;
+        }
+
+        .nova-contact-btn span {
+            display: none;
+        }
+
+        .nova-contact-btn {
+            padding: 10px;
+            width: 44px;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .nova-header-container {
+            top: 10px;
+        }
+
+        .nova-menu {
+            display: none;
+        }
+
+        .nova-burger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+        }
+
+        .nova-nav {
+            padding: 6px 16px;
+            width: 96%;
+        }
+
+        .nova-logo img {
+            height: 32px;
+        }
+
+        .nova-contacts-wrap {
+            display: none;
+        }
+
+        .nova-hours-badge {
+            display: none;
+        }
+    }
+</style>
+
+<div class="nova-header-container">
+    <nav class="nova-nav">
+        <!-- Logo -->
+        <a href="https://yezhkin-roll.ru/" class="nova-logo">
+            <img src="https://static.tildacdn.com/tild3939-3438-4066-b837-653234386331/noroot.png" alt="Ёжкин Ролл">
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="nova-menu">
+            <a href="https://yezhkin-roll.ru/#rec1805093951" class="nova-link">Акции</a>
+            <a href="https://yezhkin-roll.ru/menu" class="nova-link">Меню</a>
+            <a href="https://yezhkin-roll.ru/#rec1805303601" class="nova-link">Ланчи</a>
+            <a href="https://yezhkin-roll.ru/#rec1806945851" class="nova-link">Бонусы</a>
+            <a href="https://yezhkin-roll.ru/delivery" class="nova-link">Доставка</a>
+        </div>
+
+        <!-- Actions & Contacts -->
+        <div class="nova-actions">
+            <!-- Working Hours (Desktop only) -->
+            <div class="nova-hours-badge" title="Время работы">
+                <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span>11:00 - 22:30</span>
+            </div>
+
+            <!-- Contacts Dropdown -->
+            <div class="nova-contacts-wrap">
+                <div class="nova-contact-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                    <span>Связь с нами</span>
+                </div>
+                <!-- Dropdown Content -->
+                <div class="nova-contact-dropdown">
+                    <a href="tel:+79384899919" class="nova-contact-item">
+                        <div class="nova-contact-title">Голубые дали</div>
+                        <div class="nova-contact-phone">+7 938 489-99-19</div>
+                    </a>
+                    <a href="tel:+79388787438" class="nova-contact-item">
+                        <div class="nova-contact-title">Сочи</div>
+                        <div class="nova-contact-phone">+7 938 878-74-38</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Favorites -->
+            <a href="#favorites" class="nova-icon-btn" title="Избранное">
+                <img src="https://static.tildacdn.com/tild3065-3037-4536-b963-643733353731/vector.svg" alt="Избранное">
+            </a>
+
+            <!-- Cart: PLAN B (PROXY CLICK) -->
+            <a href="javascript:void(0)" class="nova-icon-btn" title="Корзина" onclick="novaOpenCart(this)">
+                <img src="https://static.tildacdn.com/tild6137-3635-4065-b834-663533363766/vector.svg" alt="Корзина">
+                <div class="nova-badge t706__carticon-counter">0</div>
+            </a>
+
+            <!-- Burger -->
+            <button class="nova-burger" onclick="document.getElementById('mobMenu').classList.toggle('open')">
+                <svg width="28" height="28" viewBox="0 0 24 24" stroke="#ff7a00" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="nova-mobile-menu" id="mobMenu">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-weight:700; font-size:20px; color:#111;">Меню</span>
+            <!-- Close Button -->
+            <button onclick="this.parentElement.parentElement.classList.remove('open')"
+                style="background:none; border:none; padding:5px;"><svg width="24" height="24" stroke="#999"
+                    stroke-width="2" viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg></button>
+        </div>
+
+        <a href="https://yezhkin-roll.ru/#rec1805093951" class="nova-mob-link">Акции</a>
+        <a href="https://yezhkin-roll.ru/menu" class="nova-mob-link">Меню</a>
+        <a href="https://yezhkin-roll.ru/#rec1805303601" class="nova-mob-link">Бизнес-ланчи</a>
+        <a href="https://yezhkin-roll.ru/#rec1806945851" class="nova-mob-link">Бонусы</a>
+        <a href="https://yezhkin-roll.ru/delivery" class="nova-mob-link">Доставка</a>
+
+        <!-- Mobile Info Block -->
+        <div style="margin-top:20px; padding-top:20px; border-top:1px solid #eee;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px; color:#666; font-weight:600;">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg>
+                Работаем: 11:00 - 22:30
+            </div>
+
+            <div class="nova-mob-contacts">
+                <div class="nova-mob-loc">
+                    <span>Голубые дали:</span>
+                    <a href="tel:+79384899919">+7 938 489-99-19</a>
+                </div>
+                <div class="nova-mob-loc">
+                    <span>Сочи:</span>
+                    <a href="tel:+79388787438">+7 938 878-74-38</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // === PLAN B: ROBUST CART OPENER ===
+    function novaOpenCart(btn) {
+        // 1. Попытка нажать на родную иконку Тильды (самый надежный способ)
+        const tildaWidget = document.querySelector('.t706__carticon');
+        if (tildaWidget) {
+            console.log('Nova: Clicking native Tilda widget...');
+            tildaWidget.click();
+
+            // Маленький хак: если Тильда виджет скрыт, клик может не пройти
+            // В таком случае пробуем метод 2
+            setTimeout(() => {
+                const cartWindow = document.querySelector('.t706__cartwin');
+                if (!cartWindow || getComputedStyle(cartWindow).opacity === '0') {
+                    tryOpenDirectly();
+                }
+            }, 100);
+            return;
+        }
+
+        tryOpenDirectly();
+    }
+
+    function tryOpenDirectly() {
+        console.log('Nova: Trying direct open...');
+        // 2. Прямой вызов функции
+        if (typeof t706_showPopup === 'function') {
+            t706_showPopup();
+            return;
+        }
+
+        // 3. Переход по хэшу (иногда Тильда слушает это)
+        window.location.href = '#order';
+
+        // 4. Если совсем ничего не помогло - ищем ссылки
+        const orderLinks = document.querySelectorAll('a[href="#order"]');
+        for (let link of orderLinks) {
+            // Не нажимаем на саму себя
+            if (link.className.includes('nova-icon-btn')) continue;
+            link.click();
+            return;
+        }
+    }
+</script>

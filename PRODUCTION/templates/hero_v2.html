@@ -1,0 +1,283 @@
+<!-- NOVA HERO V4 (Rich Aesthetic) -->
+<style>
+    .nova-hero {
+        position: relative;
+        min-height: 700px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        background-image: radial-gradient(hsl(var(--ez-orange-hsl, 28, 100%, 50%) / 0.05) 1px, transparent 1px);
+        background-size: 32px 32px;
+        padding: 140px 4% 80px;
+        overflow: hidden;
+    }
+
+    /* Decorative Grid Pattern Overlay */
+    .nova-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        background-size: 80px 80px;
+        pointer-events: none;
+    }
+
+    .nova-hero-container {
+        max-width: 1200px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 60px;
+        align-items: center;
+        position: relative;
+        z-index: 5;
+    }
+
+    .nova-hero-logo {
+        height: 70px;
+        margin-bottom: 32px;
+        display: block;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.05));
+    }
+
+    .nova-hero-text h1 {
+        margin: 0 0 24px;
+    }
+
+    .nova-hero-text p {
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(17px, 1.8vw, 21px);
+        line-height: 1.6;
+        color: #555;
+        max-width: 520px;
+        margin-bottom: 48px;
+    }
+
+    /* THE MEGA BUTTON */
+    .nova-hero-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #ff9d42 0%, #ff7a00 100%) !important;
+        color: #fff !important;
+        text-decoration: none;
+        padding: 22px 60px;
+        border-radius: 20px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 19px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 12px 30px rgba(255, 122, 0, 0.3);
+        transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nova-hero-btn:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 50px rgba(255, 122, 0, 0.45);
+        letter-spacing: 1.5px;
+    }
+
+    /* THE FLOATING ITEM VISUAL */
+    .nova-hero-visual {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 500px;
+    }
+
+    .nova-hero-img-main {
+        width: 140%;
+        max-width: 800px;
+        filter: drop-shadow(0 40px 100px rgba(0, 0, 0, 0.15));
+        animation: heroFloatMain 8s ease-in-out infinite;
+        z-index: 1;
+        position: relative;
+    }
+
+    /* Floating Badges */
+    .nova-floating-badge {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 14px 22px;
+        border-radius: 24px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        z-index: 10;
+        animation: badgeFloat 6s ease-in-out infinite;
+        white-space: nowrap;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    /* Positioned Badges - No Overlap */
+    .badge-price {
+        top: 15%;
+        right: -15%;
+        animation-delay: 0s;
+    }
+
+    .badge-delivery {
+        top: 50%;
+        left: -20%;
+        animation-delay: 2s;
+    }
+
+    .badge-cashback {
+        bottom: 15%;
+        right: -10%;
+        animation-delay: 4s;
+    }
+
+    .badge-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: #fff8f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff7a00;
+        font-weight: 800;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    .badge-icon svg {
+        width: 22px;
+        height: 22px;
+        stroke-width: 2.8;
+    }
+
+    @keyframes heroFloatMain {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0);
+        }
+
+        50% {
+            transform: translateY(-25px) rotate(1.5deg);
+        }
+    }
+
+    @keyframes badgeFloat {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+
+    @media (max-width: 1100px) {
+        .badge-price {
+            right: -5%;
+        }
+
+        .badge-delivery {
+            left: -5%;
+        }
+
+        .badge-cashback {
+            right: 0;
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .nova-hero {
+            padding: 80px 20px 40px;
+            text-align: center;
+        }
+
+        .nova-hero-container {
+            grid-template-columns: 1fr;
+        }
+
+        .nova-hero-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nova-hero-img-main {
+            width: 100%;
+            margin-top: 40px;
+            left: 0;
+        }
+
+        .nova-floating-badge {
+            display: none;
+        }
+
+        .nova-hero-visual {
+            min-height: auto;
+        }
+    }
+</style>
+
+<section class="nova-hero" id="home">
+    <div class="nova-hero-container">
+        <div class="nova-hero-text">
+            <img src="https://static.tildacdn.com/tild3939-3438-4066-b837-653234386331/noroot.png" alt="Logo"
+                class="nova-hero-logo">
+            <h1>Доставка роллов&nbsp;и пиццы в&nbsp;Сочи, Адлере&nbsp;и Сириусе</h1>
+            <p
+                style="font-weight: 700; color: #ff7a00; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">
+                Ёжкин ролл — 6 лет с Вами!</p>
+            <p>Проверенное годами качество&nbsp;и честный вкус в&nbsp;каждом заказе. Заказывайте свежие роллы,
+                суши&nbsp;и пиццу с&nbsp;доставкой на&nbsp;дом или&nbsp;в офис.</p>
+            <a href="https://yezhkin-roll.ru/menu" class="nova-hero-btn">Открыть всё меню</a>
+        </div>
+
+        <div class="nova-hero-visual">
+            <!-- Floating Badges -->
+            <div class="nova-floating-badge badge-price">
+                <div class="badge-icon">₽</div>
+                <div style="text-align: left;">
+                    <div
+                        style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">
+                        Роллы</div>
+                    <div style="font-size: 15px; font-weight: 800; color: #111;">от 219 ₽</div>
+                </div>
+            </div>
+
+            <!-- Badge 2: Delivery (Middle Left) -->
+            <div class="nova-floating-badge badge-delivery">
+                <div class="badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                </div>
+                <div style="text-align: left;">
+                    <div
+                        style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">
+                        Доставка</div>
+                    <div style="font-size: 15px; font-weight: 800; color: #111;">от 45 минут</div>
+                </div>
+            </div>
+
+            <!-- Badge 3: Cashback (Bottom Right) -->
+            <div class="nova-floating-badge badge-cashback">
+                <div class="badge-icon">5%</div>
+                <div style="text-align: left;">
+                    <div
+                        style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">
+                        Кэшбэк</div>
+                    <div style="font-size: 15px; font-weight: 800; color: #111;">Бонусами</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

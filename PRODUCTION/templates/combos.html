@@ -1,0 +1,541 @@
+<!-- NOVA SPECIALS (Combos & Breakfast with Popups) -->
+<style>
+    .nova-specials-section {
+        padding: 80px 4%;
+        background-color: #fff;
+        background-image: radial-gradient(#eee 1px, transparent 1px);
+        background-size: 32px 32px;
+    }
+
+    .nova-section-title {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .nova-section-title h2 {
+        text-align: center;
+    }
+
+    .nova-specials-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+
+    .nova-special-card {
+        background: #fff;
+        border-radius: 32px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 480px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .nova-special-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Dark Gradient Overlay for Readability */
+    .nova-special-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+        z-index: 2;
+        pointer-events: none;
+        transition: 0.5s ease;
+    }
+
+    .nova-special-card:hover::before {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
+    }
+
+    .nova-card-content {
+        position: relative;
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    .nova-card-image {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 0.9;
+        transition: 0.5s ease;
+    }
+
+    .nova-special-card:hover .nova-card-image {
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
+
+    .nova-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .nova-card-content {
+        position: relative;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .nova-card-badge {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(4px);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .nova-special-card h3 {
+        font-family: 'Outfit', sans-serif;
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 800;
+        margin: 0 0 16px;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.1;
+    }
+
+    .nova-special-card p {
+        font-family: 'Inter', sans-serif;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.5;
+        max-width: 320px;
+    }
+
+    .nova-card-btn-wrap {
+        position: relative;
+        z-index: 2;
+        margin-top: 40px;
+    }
+
+    /* POPUP STYLES */
+    .nova-popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 17, 17, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        padding: 20px;
+    }
+
+    .nova-popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nova-popup-window {
+        background: #fff;
+        width: 100%;
+        max-width: 800px;
+        max-height: 90vh;
+        border-radius: 40px;
+        position: relative;
+        overflow-y: auto;
+        transform: translateY(40px);
+        transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        padding: 60px 40px;
+    }
+
+    .nova-popup-overlay.active .nova-popup-window {
+        transform: translateY(0);
+    }
+
+    .nova-popup-close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        width: 44px;
+        height: 44px;
+        background: #f5f5f5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.2s;
+        border: none;
+    }
+
+    .nova-popup-close:hover {
+        background: #eee;
+        transform: rotate(90deg);
+    }
+
+    .nova-popup-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    /* Menu Items Grid */
+    .nova-menu-grid {
+        display: grid;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .nova-menu-item {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding-bottom: 24px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nova-mi-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 16px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .nova-mi-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .nova-mi-info {
+        flex-grow: 1;
+    }
+
+    .nova-mi-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 4px;
+    }
+
+    .nova-mi-name {
+        font-family: 'Outfit', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .nova-mi-price {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        color: #ff7a00;
+        font-size: 18px;
+    }
+
+    .nova-mi-desc {
+        font-size: 14px;
+        color: #777;
+    }
+
+    /* Extra Items Styles */
+    .nova-extras {
+        margin-top: 40px;
+        background: #fcfcfc;
+        padding: 30px;
+        border-radius: 24px;
+    }
+
+    .nova-extras h4 {
+        font-family: 'Outfit', sans-serif;
+        text-transform: uppercase;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    .nova-extras-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .nova-ex-item {
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .nova-ex-dots {
+        flex-grow: 1;
+        border-bottom: 1px dotted #ccc;
+        margin: 0 5px 3px;
+    }
+
+    .nova-footer-note {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+        border-top: 1px solid #eee;
+        padding-top: 30px;
+    }
+
+    .nova-red-note {
+        color: #e74c3c;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .nova-specials-section {
+            padding: 40px 16px;
+        }
+
+        .nova-section-title {
+            margin-bottom: 32px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .nova-specials-container {
+            grid-template-columns: 1fr;
+        }
+
+        .nova-popup-window {
+            padding: 40px 20px;
+            border-radius: 24px;
+        }
+
+        .nova-mi-img {
+            width: 70px;
+            height: 70px;
+        }
+    }
+</style>
+
+<section class="nova-specials-section" id="specials">
+    <div class="nova-section-title">
+        <h2>Спецпредложения на доставку роллов&nbsp;и ланчи</h2>
+    </div>
+
+    <div class="nova-specials-container">
+        <!-- Breakfast Card -->
+        <div class="nova-special-card" onclick="openNovaPopup('popup-breakfast')">
+            <div class="nova-card-image">
+                <img src="https://static.tildacdn.com/tild3565-3633-4662-a632-333439343730/breakfast_cover_1768.png"
+                    alt="Breakfast">
+            </div>
+            <div class="nova-card-content">
+                <div class="nova-card-badge">от 299 ₽</div>
+                <h3>Поздние завтраки</h3>
+                <p>Энергичное начало дня&nbsp;с нашими специальными блюдами&nbsp;и горячими напитками.<br>Ежедневно
+                    с&nbsp;11:00&nbsp;— 16:00.</p>
+            </div>
+            <div class="nova-card-btn-wrap">
+                <span class="nova-hero-btn" style="padding: 16px 32px; font-size: 14px;">Посмотреть меню</span>
+            </div>
+        </div>
+
+        <!-- Lunch Card -->
+        <div class="nova-special-card" onclick="openNovaPopup('popup-lunch')">
+            <div class="nova-card-image">
+                <img src="https://static.tildacdn.com/tild3461-3938-4938-b230-363963656239/lunch_cover_17688404.png"
+                    alt="Lunch">
+            </div>
+            <div class="nova-card-content">
+                <div class="nova-card-badge">590 ₽</div>
+                <h3>Бизнес-ланчи</h3>
+                <p>Полноценный комплексный обед в&nbsp;кафе или&nbsp;с доставкой в&nbsp;офис.<br>С&nbsp;11:00&nbsp;—
+                    16:00.</p>
+            </div>
+            <div class="nova-card-btn-wrap">
+                <span class="nova-hero-btn" style="padding: 16px 32px; font-size: 14px;">Варианты ланчей</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- POPUP: BREAKFAST -->
+<div class="nova-popup-overlay" id="popup-breakfast" onclick="closeNovaPopup(event)">
+    <div class="nova-popup-window" onclick="event.stopPropagation()">
+        <button class="nova-popup-close" onclick="closeNovaPopupAcross()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="nova-popup-title">Меню завтраков</div>
+
+        <div class="nova-menu-grid">
+            <div class="nova-menu-item">
+                <div class="nova-mi-img"><img
+                        src="https://static.tildacdn.com/tild3431-3436-4137-b263-313931333039/IMG_8098.JPG"></div>
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Сырники</span><span class="nova-mi-price">299
+                            ₽</span></div>
+                    <div class="nova-mi-desc">Классические нежные сырники со сметаной.</div>
+                </div>
+            </div>
+            <div class="nova-menu-item">
+                <div class="nova-mi-img"><img
+                        src="https://static.tildacdn.com/tild3466-3233-4338-a536-613432313437/IMG_8101.JPG"></div>
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Шакшука, домашняя булочка</span><span
+                            class="nova-mi-price">399 ₽</span></div>
+                    <div class="nova-mi-desc">Пряная яичница в томатном соусе с хрустящей булкой.</div>
+                </div>
+            </div>
+            <div class="nova-menu-item">
+                <div class="nova-mi-img"><img
+                        src="https://static.tildacdn.com/tild6130-3762-4665-b639-386639386366/IMG_8102.JPG"></div>
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Омлет c сосиской, беконом, салатом</span><span
+                            class="nova-mi-price">499 ₽</span></div>
+                    <div class="nova-mi-desc">Сытный завтрак с гарниром и булочкой.</div>
+                </div>
+            </div>
+            <div class="nova-menu-item">
+                <div class="nova-mi-img"><img
+                        src="https://static.tildacdn.com/tild3439-6531-4862-a562-383037313163/IMG_8100.JPG"></div>
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Овощная сковородка (Курица/Говядина)</span><span
+                            class="nova-mi-price">449 / 559 ₽</span></div>
+                </div>
+            </div>
+            <div class="nova-menu-item" style="border-bottom: none;">
+                <div class="nova-mi-img"><img
+                        src="https://static.tildacdn.com/tild6662-6439-4362-b833-383061623165/IMG_8099.JPG"></div>
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Глазунья с лососем и лососем</span><span
+                            class="nova-mi-price">599 ₽</span></div>
+                    <div class="nova-mi-desc">С салатом и домашней булочкой.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nova-extras">
+            <h4>Дополнительно</h4>
+            <div class="nova-extras-grid">
+                <div class="nova-ex-item"><span>Бекон</span>
+                    <div class="nova-ex-dots"></div><span>69 ₽</span>
+                </div>
+                <div class="nova-ex-item"><span>Помидоры</span>
+                    <div class="nova-ex-dots"></div><span>29 ₽</span>
+                </div>
+                <div class="nova-ex-item"><span>Шампиньоны</span>
+                    <div class="nova-ex-dots"></div><span>39 ₽</span>
+                </div>
+                <div class="nova-ex-item"><span>Моцарелла</span>
+                    <div class="nova-ex-dots"></div><span>49 ₽</span>
+                </div>
+                <div class="nova-ex-item"><span>Пармезан</span>
+                    <div class="nova-ex-dots"></div><span>79 ₽</span>
+                </div>
+                <div class="nova-ex-item"><span>Джем</span>
+                    <div class="nova-ex-dots"></div><span>39 ₽</span>
+                </div>
+                <div class="nova-ex-item"><span>Сметана</span>
+                    <div class="nova-ex-dots"></div><span>39 ₽</span>
+                </div>
+                <div class="nova-ex-item"><span>Сгущёнка</span>
+                    <div class="nova-ex-dots"></div><span>39 ₽</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nova-footer-note">
+            <div>В стоимость входит напиток на выбор: американо, чай, морс.</div>
+            <div class="nova-red-note">Доставка на завтраки не осуществляется</div>
+        </div>
+    </div>
+</div>
+
+<!-- POPUP: LUNCH -->
+<div class="nova-popup-overlay" id="popup-lunch" onclick="closeNovaPopup(event)">
+    <div class="nova-popup-window" onclick="event.stopPropagation()">
+        <button class="nova-popup-close" onclick="closeNovaPopupAcross()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="nova-popup-title">Варианты бизнес-ланчей</div>
+
+        <div class="nova-menu-grid">
+            <div class="nova-menu-item">
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Бизнес ланч 1</span></div>
+                    <div class="nova-mi-desc">Мисо суп и шарик риса, Футомаки с тунцом, Капустный салат, 2 гункана с
+                        крабом.</div>
+                </div>
+            </div>
+            <div class="nova-menu-item">
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Бизнес ланч 2</span></div>
+                    <div class="nova-mi-desc">Суп Ким чи, Рис тяхан с курочкой и овощами, Салат из капусты.</div>
+                </div>
+            </div>
+            <div class="nova-menu-item">
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Бизнес ланч 3</span></div>
+                    <div class="nova-mi-desc">Суп лапша куриный, Рубленная котлета из курицы, Отварной картофель, Салат
+                        из капусты.</div>
+                </div>
+            </div>
+            <div class="nova-menu-item">
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Бизнес ланч 4</span></div>
+                    <div class="nova-mi-desc">Ким чи суп, Запеченный цезарь ролл, Салат из капусты.</div>
+                </div>
+            </div>
+            <div class="nova-menu-item" style="border-bottom: none;">
+                <div class="nova-mi-info">
+                    <div class="nova-mi-top"><span class="nova-mi-name">Бизнес ланч 5</span></div>
+                    <div class="nova-mi-desc">Суп лапша, Спагетти, Куриная сосиска, Салат из капусты, Красный соус.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nova-footer-note">
+            <div style="font-weight: 700; margin-bottom: 10px;">Цена: 590 ₽</div>
+            <div>В стоимость входит напиток на выбор: американо, чай, морс.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openNovaPopup(id) {
+        document.getElementById(id).classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeNovaPopup(e) {
+        if (e.target.classList.contains('nova-popup-overlay')) {
+            closeNovaPopupAcross();
+        }
+    }
+
+    function closeNovaPopupAcross() {
+        document.querySelectorAll('.nova-popup-overlay').forEach(p => p.classList.remove('active'));
+        document.body.style.overflow = 'auto';
+    }
+</script>

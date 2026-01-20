@@ -1,0 +1,269 @@
+<!-- MASTER CART CONFIGURATION & DESIGN v1 -->
+<!-- ЧАСТЬ 1: КОНФИГУРАЦИЯ + СТИЛИ + UPSELL -->
+
+<style>
+    /* === 1. NOVA GLASS DESIGN SYSTEM (СТИЛИ КОРЗИНЫ) === */
+
+    /* Backdrop & Window */
+    .t706__cartwin {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(6px);
+    }
+
+    .t706__cartwin-content {
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: -10px 0 50px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Layout (Desktop) */
+    @media screen and (min-width: 960px) {
+        .t706__cartwin-content {
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            max-height: calc(100vh - 40px) !important;
+            /* Важно для карты! */
+            height: auto !important;
+            right: 20px !important;
+            overflow-y: auto !important;
+        }
+    }
+
+    /* Typography & Colors */
+    .t706__cartwin-heading,
+    .t706__product-title,
+    .t706__cartwin-prodamount-label,
+    .t706__cartwin-totalamount-label,
+    .t-input-title {
+        font-family: 'Outfit', sans-serif !important;
+        color: #1f2937 !important;
+    }
+
+    .t706__product-title {
+        font-weight: 700 !important;
+        font-size: 16px !important;
+    }
+
+    .t706__product-option-text {
+        font-family: 'Inter', sans-serif !important;
+        color: #666 !important;
+    }
+
+    /* Buttons (Orange) */
+    .t706__cartwin-action .t706__submit-btn,
+    .t706__cartwin-prodamount-btn {
+        background: #ff7a00 !important;
+        color: #fff !important;
+        border-radius: 50px !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 700 !important;
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(255, 122, 0, 0.25);
+        transition: 0.3s;
+    }
+
+    .t706__cartwin-action .t706__submit-btn:hover {
+        background: #e66e00 !important;
+        box-shadow: 0 6px 20px rgba(255, 122, 0, 0.4);
+        transform: translateY(-2px);
+    }
+
+    /* Inputs & Map Container */
+    .t-input {
+        background: #fff !important;
+        border: 1px solid #eee !important;
+        border-radius: 12px !important;
+        padding-left: 15px !important;
+        font-family: 'Inter', sans-serif !important;
+        color: #333 !important;
+        min-height: 50px;
+    }
+
+    .t-input:focus {
+        border-color: #ff7a00 !important;
+        box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1) !important;
+    }
+
+    /* Контейнер для карты доставки (восстановлен) */
+    #dr-suggestion-container {
+        z-index: 1000;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Upsell Styles */
+    .nova-upsell-wrap {
+        padding: 20px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
+
+    .nova-upsell-title {
+        font-family: 'Outfit';
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 12px;
+        color: #444;
+    }
+
+    .nova-upsell-grid {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .nova-upsell-item {
+        min-width: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .nova-upsell-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #f9fafb;
+        border: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s;
+    }
+
+    .nova-upsell-circle img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
+
+    .nova-upsell-item:hover .nova-upsell-circle {
+        border-color: #ff7a00;
+        background: #fff9f2;
+    }
+
+    .nova-upsell-name {
+        font-size: 11px;
+        font-family: 'Inter';
+        color: #555;
+        line-height: 1.2;
+    }
+
+    /* === HIDE NATIVE TILDA UPSELLS (REQUESTED) === */
+    /* Ginger */
+    .t-img-select__control:has([data-original*="tr.jpg"]),
+    .t-img-select__control:has([style*="tr.jpg"]) {
+        display: none !important;
+    }
+
+    /* Wasabi */
+    .t-img-select__control:has([data-original*="was.jpg"]),
+    .t-img-select__control:has([style*="was.jpg"]) {
+        display: none !important;
+    }
+
+    /* Soy Sauce */
+    .t-img-select__control:has([data-original*="sou.jpg"]),
+    .t-img-select__control:has([style*="sou.jpg"]) {
+        display: none !important;
+    }
+
+    /* Cutlery */
+    .t-img-select__control:has([data-original*="grizly-cl.jpg"]),
+    .t-img-select__control:has([style*="grizly-cl.jpg"]) {
+        display: none !important;
+    }
+
+    /* === HIDE TEXT "Add additionally to order" === */
+    #field-title_6812398569260 {
+        display: none !important;
+    }
+
+    /* === HIDE LOCATION "Sataraohotnichya street" === */
+    .t-radio__control:has(input[value^="Староохотничья улица, 4"]) {
+        display: none !important;
+    }
+</style>
+
+<script>
+    /* === 2. DELIVERY MODULE CONFIGURATION (Bok 5 RESTORED) === */
+    window.DELIVERY_MODULE_CONFIG = {
+        "Название способа доставки": "Курьером",
+        "Поля которые нужно скрывать при выборе доставки": ["delivery_address"],
+        "Имя переменной для поля доставка": "delivery",
+        "Имя переменой для вода адреса": "delivery_address",
+        "Ссылка на Gist с зонами": "https://gist.githubusercontent.com/812spb1705-sudo/2f88c6a57e034b0a88ae8d863b4cbf84/raw/476830d9a1f0e10d34eacdadbdcc8e335e3ed12c/%25D0%2597%25D0%25BE%25D0%25BD%25D1%258B%2520%25D0%25B4%25D0%25BE%25D1%2581%25D1%2582%25D0%25B0%25D0%25B2%25D0%25BA%25D0%25B8",
+
+        "ТЕКСТА": {
+            "Ошибка в модуле": "Техническая неполадка на сайте. Чтобы оформить доставку - пожалуйста обновите страницу. Если не помогло - свяжитесь с нами для оформления по телефону",
+            "Неверные координаты": 'Не удалось определить Ваш адрес. Пожалуйста, позвоните нам для уточнения адреса доставки',
+            "Неверный адрес": 'Неточный адрес, требуется указать дом',
+            "Ошибка в блоке с сообщениями": 'Ошибка в поле адреса доставки',
+            "Адрес не попадает в зону доставки": 'К сожалению, Ваш адрес не попадает в зону доставки',
+            "Бесплатная доставка": 'Доставка по Вашему адресу бесплатная',
+            "Сумма товаров меньше указанной для зоны доставки": 'Выберите товаров на сумму более чем {{MIN_DELIVERY_PRICE}-{CART_AMOUNT}} {CURRENCY_SYMBOL} для доставки по Вашему адресу',
+            "Стоимость доставки": `Доставка по Вашему адресу стоит {DELIVERY_PRICE} {CURRENCY_SYMBOL}</br>Для бесплатной доставки, закажите продуктов еще на сумму {{FREE_DELIVERY_PRICE}-{CART_AMOUNT}} {CURRENCY_SYMBOL}`,
+        },
+
+        DaData: {
+            params: {
+                locations_geo: [{
+                    lat: 43.550463,
+                    lon: 39.843478,
+                    radius_meters: 30000,
+                }],
+            },
+        }
+    };
+
+    /* === 3. UPSELL LOGIC (ANTIDOTE & EXTRAS) === */
+    document.addEventListener('DOMContentLoaded', function () {
+        // Upsell Init
+        const waitForCart = setInterval(() => {
+            const cartContent = document.querySelector('.t706__cartwin-content');
+            if (cartContent) {
+                clearInterval(waitForCart);
+                initNovaCart(cartContent);
+            }
+        }, 500);
+
+        function initNovaCart(container) {
+            // Upsell HTML
+            const upsellHTML = `
+            <div class="nova-upsell-wrap">
+                <div class="nova-upsell-title">Добавить к заказу:</div>
+                <div class="nova-upsell-grid">
+                    <div class="nova-upsell-item" onclick="tcart__addProduct({name:'Имбирь', price:30, img:'https://static.tildacdn.com/tild6164-6239-4532-b861-316561623066/11.png'})">
+                        <div class="nova-upsell-circle"><img src="https://static.tildacdn.com/tild6164-6239-4532-b861-316561623066/11.png"></div>
+                        <span class="nova-upsell-name">Имбирь<br>30₽</span>
+                    </div>
+                    <div class="nova-upsell-item" onclick="tcart__addProduct({name:'Васаби', price:30, img:'https://static.tildacdn.com/tild3362-6264-4462-a332-306530656438/Gemini_Generated_Ima.png'})">
+                        <div class="nova-upsell-circle"><img src="https://static.tildacdn.com/tild3362-6264-4462-a332-306530656438/Gemini_Generated_Ima.png"></div>
+                        <span class="nova-upsell-name">Васаби<br>30₽</span>
+                    </div>
+                    <div class="nova-upsell-item" onclick="tcart__addProduct({name:'Соевый соус', price:40, img:'https://static.tildacdn.com/tild3138-6336-4430-b534-363164666433/33.png'})">
+                        <div class="nova-upsell-circle"><img src="https://static.tildacdn.com/tild3138-6336-4430-b534-363164666433/33.png"></div>
+                        <span class="nova-upsell-name">Соевый<br>40₽</span>
+                    </div>
+                </div>
+            </div>
+        `;
+            const target = container.querySelector('.t706__cartwin-bottom');
+            if (target && !container.querySelector('.nova-upsell-wrap')) {
+                const div = document.createElement('div');
+                div.innerHTML = upsellHTML;
+                target.parentNode.insertBefore(div, target);
+            }
+        }
+    });
+</script>
