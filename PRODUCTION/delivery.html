@@ -263,11 +263,7 @@
 <body>
     <div class="page-bg"></div>
 
-    <header class="header">
-        <a href="/" class="logo">
-            <span style="color: #000">Ёжкин</span> ролл
-        </a>
-    </header>
+    <!-- Header removed as requested, using Tilda global header -->
 
     <main class="main-container">
         <!-- Map Section -->
@@ -293,15 +289,22 @@
                     Самовывоз (наши филиалы)
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
-                    <div
-                        style="padding: 8px; border-radius: 10px; background: rgba(255,122,0,0.05); border-left: 3px solid var(--primary);">
-                        <b>Адлер:</b> ул. Голубые Дали, 58/3
-                    </div>
-                    <div
-                        style="padding: 8px; border-radius: 10px; background: rgba(255,122,0,0.05); border-left: 3px solid var(--primary);">
-                        <b>Сочи:</b> ул. Воровского, 5
-                    </div>
+                    <a href="https://yandex.ru/profile/-/CLhp7KIY" target="_blank"
+                        style="text-decoration: none; color: inherit; padding: 12px; border-radius: 12px; background: rgba(255,122,0,0.05); border-left: 3px solid var(--primary); transition: 0.2s; display: block;">
+                        <b style="color: var(--primary);">Адлер:</b> ул. Голубые Дали, 58/3
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Смотреть на картах →
+                        </div>
+                    </a>
+                    <a href="https://yandex.ru/profile/-/CLhtAY1F" target="_blank"
+                        style="text-decoration: none; color: inherit; padding: 12px; border-radius: 12px; background: rgba(255,122,0,0.05); border-left: 3px solid var(--primary); transition: 0.2s; display: block;">
+                        <b style="color: var(--primary);">Сочи (Центр):</b> ул. Воровского, 5
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Смотреть на картах →
+                        </div>
+                    </a>
                 </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 15px; line-height: 1.4;">
+                    Вы можете бесплатно забрать заказ из наших кафе.
+                </p>
             </div>
 
             <!-- Dynamic Zone Card -->
@@ -321,41 +324,60 @@
                 </div>
             </div>
 
-            <!-- Static Info Card -->
+            <!-- Delivery Rules Card -->
             <div class="glass-card">
                 <div class="card-title">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    Условия доставки
+                    Важные условия
                 </div>
-                <ul class="delivery-info-list">
-                    <li>
-                        <svg class="icon-check" width="16" height="16" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
-                            </path>
-                        </svg>
-                        Бесплатный имбирь, васаби и соевый соус при каждом заказе!
+                <ul class="delivery-info-list" style="font-size: 13px;">
+                    <li style="margin-bottom: 8px;">
+                        • Время доставки уточняет оператор при подтверждении заказа.
                     </li>
-                    <li>
-                        <svg class="icon-check" width="16" height="16" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
-                            </path>
-                        </svg>
-                        СМС-оповещение о готовности и выезде курьера.
+                    <li style="margin-bottom: 8px;">
+                        • <b>За пределами зон:</b> доставка от 2000 ₽, по полной предоплате + компенсация 50% стоимости
+                        такси.
                     </li>
-                    <li>
-                        <svg class="icon-check" width="16" height="16" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
-                            </path>
-                        </svg>
-                        Среднее время доставки: 45-90 минут.
+                    <li style="margin-bottom: 8px;">
+                        • Мы стараемся сохранить температуру блюд, но не гарантируем, что они останутся идеально
+                        горячими.
+                    </li>
+                    <li style="margin-bottom: 8px; color: #dc2626; font-weight: 500;">
+                        • Имбирь, васаби и соевый соус НЕ ПРЕДОСТАВЛЯЮТСЯ бесплатно. Возможна только покупка приборов.
+                    </li>
+                    <li style="color: #10b981;">
+                        • СМС-оповещение о готовности и выезде курьера.
                     </li>
                 </ul>
+            </div>
+
+            <!-- Zones Summary Card -->
+            <div class="glass-card">
+                <div class="card-title">Зоны доставки</div>
+                <div style="display: grid; gap: 8px; font-size: 13px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                        <span><span style="color: #ed4543;">●</span> Красная</span>
+                        <b>200 ₽ (от 1000 ₽)</b>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                        <span><span style="color: #82cdff;">●</span> Голубая</span>
+                        <b>300 ₽ (от 1500 ₽)</b>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                        <span><span style="color: #ff931e;">●</span> Оранжевая</span>
+                        <b>400 ₽ (от 2000 ₽)</b>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                        <span><span style="color: #0e4779;">●</span> Синяя</span>
+                        <b>450 ₽ (от 2500 ₽)</b>
+                    </div>
+                </div>
             </div>
 
             <!-- Shop Info -->
@@ -369,7 +391,7 @@
                 </div>
                 <p style="font-size: 14px; color: var(--text-dark)">Ежедневно с 11:00 до 23:00</p>
                 <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Заказы на доставку принимаются до
-                    22:45</p>
+                    <b>22:30</b></p>
             </div>
         </aside>
     </main>
@@ -395,18 +417,37 @@
                 zoomMargin: 20
             });
 
-            // Добавление маркеров самовывоза
+            // Добавление маркеров самовывоза с кастомным логотипом
             const pickups = [
-                { coords: [39.923145, 43.453303], text: 'Адлер: ул. Голубые Дали, 58/3' },
-                { coords: [39.723062, 43.585502], text: 'Сочи: ул. Воровского, 5' }
+                {
+                    coords: [39.906872, 43.451884],
+                    title: 'Адлер: ул. Голубые Дали, 58/3',
+                    link: 'https://yandex.ru/profile/-/CLhp7KIY'
+                },
+                {
+                    coords: [39.719636, 43.586577],
+                    title: 'Сочи: ул. Воровского, 5',
+                    link: 'https://yandex.ru/profile/-/CLhtAY1F'
+                }
             ];
+
+            const logoUrl = 'https://static.tildacdn.com/tild3939-3438-4066-b837-653234386331/noroot.png';
 
             pickups.forEach(p => {
                 var placemark = new ymaps.Placemark(p.coords, {
-                    hintContent: p.text,
-                    balloonContent: `<strong>Ёжкин ролл</strong><br>${p.text}`
+                    hintContent: p.title,
+                    balloonContent: `
+                        <div style="padding: 10px; font-family: 'Inter', sans-serif;">
+                            <img src="${logoUrl}" style="height: 30px; margin-bottom: 10px;">
+                            <div style="font-weight: 700; font-size: 14px; margin-bottom: 5px;">${p.title}</div>
+                            <a href="${p.link}" target="_blank" style="color: #ff7a00; text-decoration: none; font-size: 12px; font-weight: 600;">Открыть на картах →</a>
+                        </div>
+                    `
                 }, {
-                    preset: 'islands#orangeDotIcon'
+                    iconLayout: 'default#image',
+                    iconImageHref: logoUrl,
+                    iconImageSize: [40, 40],
+                    iconImageOffset: [-20, -20]
                 });
                 myMap.geoObjects.add(placemark);
             });
