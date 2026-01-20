@@ -12,7 +12,8 @@
         rel="stylesheet">
 
     <!-- Yandex Maps API v2.1 -->
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=76c6dafd-ce2d-4895-a10b-e98de9678cf8&lang=ru_RU"
+    <script
+        src="https://api-maps.yandex.ru/2.1/?apikey=76c6dafd-ce2d-4895-a10b-e98de9678cf8&lang=ru_RU&coordorder=longlat"
         type="text/javascript"></script>
 
     <style>
@@ -378,7 +379,7 @@
 
         function init() {
             var myMap = new ymaps.Map("map", {
-                center: [43.43, 39.92], // Сириус/Адлер
+                center: [39.92, 43.43], // Сириус/Адлер (Lon, Lat)
                 zoom: 12,
                 controls: ['zoomControl', 'fullscreenControl']
             });
@@ -396,8 +397,8 @@
 
             // Добавление маркеров самовывоза
             const pickups = [
-                { coords: [43.453303, 39.923145], text: 'Адлер: ул. Голубые Дали, 58/3' },
-                { coords: [43.585502, 39.723062], text: 'Сочи: ул. Воровского, 5' }
+                { coords: [39.923145, 43.453303], text: 'Адлер: ул. Голубые Дали, 58/3' },
+                { coords: [39.723062, 43.585502], text: 'Сочи: ул. Воровского, 5' }
             ];
 
             pickups.forEach(p => {
