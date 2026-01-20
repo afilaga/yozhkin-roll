@@ -244,6 +244,17 @@
         .ymaps-2-1-79-balloon__content {
             padding: 15px !important;
             border-radius: 15px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .pickup-badge {
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
         }
     </style>
 </head>
@@ -255,24 +266,47 @@
         <a href="/" class="logo">
             <span style="color: #000">Ёжкин</span> ролл
         </a>
-        <div class="nav">
-            <!-- Navigation items if needed -->
-        </div>
     </header>
 
     <main class="main-container">
         <!-- Map Section -->
         <section class="map-section">
             <div class="search-box">
-                <input type="text" id="address-input" placeholder="Введите адрес доставки (напр. Сочи, ул. Мира 10)">
+                <input type="text" id="address-input" placeholder="Введите ваш адрес для проверки доставки...">
                 <button id="search-btn"
-                    style="background: var(--primary); color: #fff; border: none; padding: 0 25px; border-radius: 10px; font-weight: 600; cursor: pointer;">Найти</button>
+                    style="background: var(--primary); color: #fff; border: none; padding: 0 25px; border-radius: 10px; font-weight: 600; cursor: pointer;">Проверить</button>
             </div>
             <div id="map"></div>
         </section>
 
         <!-- Sidebar Section -->
         <aside class="info-sidebar">
+            <!-- Pickup Locations -->
+            <div class="glass-card">
+                <div class="card-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                    Самовывоз (наши филиалы)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
+                    <div
+                        style="padding: 8px; border-radius: 10px; background: rgba(255,122,0,0.05); border-left: 3px solid var(--primary);">
+                        <b>Адлер:</b> ул. Голубые Дали, 58/3
+                    </div>
+                    <div
+                        style="padding: 8px; border-radius: 10px; background: rgba(255,122,0,0.05); border-left: 3px solid var(--primary);">
+                        <b>Сириус:</b> ул. Староохотничья, 4
+                    </div>
+                    <div
+                        style="padding: 8px; border-radius: 10px; background: rgba(255,122,0,0.05); border-left: 3px solid var(--primary);">
+                        <b>Сочи:</b> ул. Воровского, 5
+                    </div>
+                </div>
+            </div>
+
             <!-- Dynamic Zone Card -->
             <div id="active-zone-info" class="glass-card">
                 <div class="card-title">
@@ -359,20 +393,38 @@
                 .then(data => {
                     var deliveryZones = ymaps.geoQuery(data).addToMap(myMap);
 
+                    // Добавление маркеров самовывоза
+                    const pickups = [
+                        { coords: [43.453303, 39.923145], text: 'Адлер: ул. Голубые Дали, 58/3' },
+                        { coords: [43.414349, 39.954003], text: 'Сириус: ул. Староохотничья, 4' },
+                        { coords: [43.585502, 39.723062], text: 'Сочи: ул. Воровского, 5' }
+                    ];
+
+                    pickups.forEach(p => {
+                        var placemark = new ymaps.Placemark(p.coords, {
+                            hintContent: p.text,
+                            balloonContent: `<strong>Ёжкин ролл</strong><br>${p.text}`
+                        }, {
+                            preset: 'islands#orangeDotIcon'
+                        });
+                        myMap.geoObjects.add(placemark);
+                    });
+
                     // Стилизация зон
                     deliveryZones.each(function (obj) {
                         var props = obj.properties.getAll();
                         obj.options.set({
                             fillColor: props.fill || '#ed4543',
-                            fillOpacity: 0.4,
+                            fillOpacity: 0.3,
                             strokeColor: props.stroke || '#ed4543',
-                            strokeWidth: 2,
+                            strokeWidth: 3,
                             strokeOpacity: 0.8
                         });
 
                         // Клик по зоне
                         obj.events.add('click', function (e) {
                             showZoneInfo(props.description);
+                            myMap.setCenter(e.get('coords'), myMap.getZoom(), { duration: 300 });
                         });
                     });
 
