@@ -111,11 +111,14 @@
             border-radius: 30px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         #map {
             width: 100%;
             height: 100%;
+            min-height: 320px;
         }
 
         /* Wrap map to allow absolute search box outside overflow:hidden */
@@ -150,9 +153,20 @@
             transition: 0.2s;
         }
 
-        .search-box input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+        @media (max-width: 1100px) {
+            .search-box {
+                position: static;
+                margin-bottom: 0;
+                border-bottom: 1px solid #eee;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 15px;
+            }
+
+            .map-wrapper {
+                height: 320px;
+                order: -1;
+            }
         }
 
         /* DaData Styling Overrides */
@@ -308,15 +322,14 @@
     <!-- Header removed as requested, using Tilda global header -->
 
     <main class="main-container">
-        <!-- Map Section -->
-        <section class="map-wrapper">
-            <div class="map-section" style="height: 100%;">
-                <div id="map"></div>
-            </div>
+        <section class="map-section">
             <div class="search-box">
-                <input type="text" id="address-input" placeholder="Введите ваш адрес для проверки доставки...">
+                <input type="text" id="address-input" placeholder="Введите ваш адрес...">
                 <button id="search-btn"
-                    style="background: var(--primary); color: #fff; border: none; padding: 0 25px; border-radius: 10px; font-weight: 600; cursor: pointer;">Проверить</button>
+                    style="background: var(--primary); color: #fff; border: none; padding: 0 20px; border-radius: 10px; font-weight: 600; cursor: pointer;">Найти</button>
+            </div>
+            <div class="map-wrapper">
+                <div id="map"></div>
             </div>
         </section>
 
