@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Ой, ролл укатился! | Ёжкин ролл</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff7a00;
+            --primary-hover: #e66e00;
+            --glass: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #1f2937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fdf2e9;
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, #fff9f2 0%, #ffe8d1 100%);
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(255, 122, 0, 0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-code {
+            font-family: 'Outfit', sans-serif;
+            font-size: 120px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff7a00, #ff9d42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .illustration {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Temporary placeholder for the hedgehog */
+        .hedgehog-placeholder {
+            width: 100%;
+            height: 100%;
+            background: url('https://static.tildacdn.com/tild3939-3438-4066-b837-653234386331/noroot.png') no-repeat center;
+            background-size: contain;
+            animation: bounce 4s infinite ease-in-out;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .home-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(255, 122, 0, 0.25);
+        }
+
+        .home-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 122, 0, 0.35);
+        }
+
+        /* Decorative rolls */
+        .roll {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            border: 5px solid #333;
+            box-shadow: inset 0 0 0 10px #ff7a00;
+            opacity: 0.1;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+
+    <div class="container">
+        <div class="error-code">404</div>
+
+        <div class="illustration">
+            <div class="hedgehog-placeholder"></div>
+            <!-- Decorative elements can be added here once image is available -->
+        </div>
+
+        <h1>Упс... Ролл укатился!</h1>
+        <p>Кажется, страница, которую вы ищете, съедена ежиком или просто никогда не существовала.</p>
+
+        <a href="/" class="home-btn">К свежим роллам! 🍣</a>
+    </div>
+
+    <script>
+        // Simple parallax for decorative elements
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.container');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
+</body>
+
+</html>
