@@ -8,8 +8,8 @@ DATA_DIR = os.path.join(BASE_DIR, 'PRODUCTION', 'data')
 PAGES_DIR = os.path.join(BASE_DIR, 'PRODUCTION', 'pages')
 
 CONFIG_FILE = os.path.join(DATA_DIR, 'pricing_config.json')
-ZONES_FILE = os.path.join(DATA_DIR, 'delivery_zones.json')
-HTML_FILE = os.path.join(PAGES_DIR, 'delivery.html')
+ZONES_FILE = os.path.join(BASE_DIR, 'PRODUCTION', 'delivery_zones.json')
+HTML_FILE = os.path.join(BASE_DIR, 'PRODUCTION', 'delivery.html')
 
 
 def load_json(path):
