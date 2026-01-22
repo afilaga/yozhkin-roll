@@ -1,0 +1,46 @@
+[
+    {
+        "id": "red",
+        "name": "Красная зона",
+        "zone_ids": [
+            1,
+            2
+        ],
+        "price": 200,
+        "min_order": 1000,
+        "color": "#ed4543"
+    },
+    {
+        "id": "blue",
+        "name": "Голубая зона",
+        "zone_ids": [
+            3
+        ],
+        "price": 300,
+        "min_order": 1500,
+        "color": "#82cdff"
+    },
+    {
+        "id": "orange",
+        "name": "Оранжевая зона",
+        "zone_ids": [
+            4,
+            0
+        ],
+        "price": 400,
+        "min_order": 2000,
+        "color": "#ff931e"
+    },
+    {
+        "id": "darkblue",
+        "name": "Синяя зона",
+        "zone_ids": [
+            5,
+            6,
+            7
+        ],
+        "price": 450,
+        "min_order": 2500,
+        "color": "#0e4779"
+    }
+]

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /config/
+Disallow: /data/
+Disallow: /templates/
+Disallow: /404.html
+
+Sitemap: https://yezhkin-roll.ru/sitemap.xml
