@@ -524,3 +524,42 @@
   ]
 }
 </script>
+
+<!-- 7. FIX: Product Card Click -> Popup (Not Cart) -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // FIX: Force Product Popup on Card Click (st310n)
+    document.body.addEventListener('click', function (e) {
+      // 1. Find the card
+      const card = e.target.closest('.t-store__card');
+      if (!card) return;
+
+      // 2. Ignore actual "Add to Cart" and Quantity buttons
+      // .js-store-prod-btn, .t-store__prod__quantity, .t-btn
+      if (e.target.closest('.js-store-prod-btn') ||
+        e.target.closest('.t-store__card__btn') ||
+        e.target.closest('.t-store__prod__quantity') ||
+        e.target.closest('.t-btn')) {
+        return;
+      }
+
+      // 3. Find the actual Popup trigger (usually 'Description' button or link)
+      // Tilda st310n often uses .js-store-prod-btn2 for details
+      // We also check for the generic popup link just in case
+      const popupLink = card.querySelector('.js-store-prod-btn2') || card.querySelector('a[href^="#prodpopup"]');
+
+      if (popupLink) {
+        // If the user clicked the link itself, let it be.
+        if (e.target === popupLink || popupLink.contains(e.target)) return;
+
+        // Stop the event from reaching Tilda's "Add to Cart" listeners
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        // Trigger the popup
+        popupLink.click();
+      }
+    }, true); // Capture phase is critical here
+  });
+</script>
