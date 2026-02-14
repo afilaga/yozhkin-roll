@@ -193,6 +193,21 @@
     .t-radio__control:has(input[value^="Староохотничья улица, 4"]) {
         display: none !important;
     }
+
+    /* === FIX: PRODUCT ADDED NOTIFICATION === */
+    .t706__bubble {
+        background: rgba(0, 0, 0, 0.9) !important;
+        border-radius: 12px !important;
+        padding: 15px 20px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .t706__bubble-text,
+    .t706__bubble-title,
+    .t706__bubble-descr {
+        color: #fff !important;
+        font-family: 'Outfit', sans-serif !important;
+    }
 </style>
 
 <script>
@@ -227,7 +242,64 @@
     };
 
     /* === 3. UPSELL LOGIC (ANTIDOTE & EXTRAS) === */
+    // Helper function for safe addition
+    window.addToCartUpsell = function (product) {
+        console.log('Antigravity: Adding upsell product:', product);
+        try {
+            if (typeof tcart__addProduct === 'function') {
+                tcart__addProduct(product);
+
+                // Ensure data is saved to local storage immediately
+                if (typeof tcart__saveLocalObj === 'function') tcart__saveLocalObj();
+
+                // Force UI update
+                setTimeout(function () {
+                    // Recalculate totals
+                    if (typeof tcart__updateTotal === 'function') tcart__updateTotal();
+
+                    // Force redraw by calling openCart (standard Tilda way to render)
+                    // This ensures the item appears immediately in the list
+                    if (typeof tcart__openCart === 'function') {
+                        tcart__openCart();
+                    } else if (typeof tcart__reDrawCart === 'function') {
+                        tcart__reDrawCart();
+                    }
+                }, 50);
+            } else {
+                console.error('Antigravity: tcart__addProduct is not a function');
+                alert('Ошибка добавления: Корзина не инициализирована');
+            }
+        } catch (e) {
+            console.error('Antigravity: Upsell Error:', e);
+        }
+    };
+
     document.addEventListener('DOMContentLoaded', function () {
+        // Upsell Configuration
+        const UPSELL_ITEMS = [
+            {
+                name: 'Имбирь',
+                price: 50,
+                img: 'https://optim.tildacdn.com/stor3434-3364-4365-b937-306362346135/-/resize/600x800/-/format/webp/b7f57a98abeaee47bc2f3a0df2048d15.jpg.webp',
+                uid: '351561097752',
+                url: 'https://yezhkin-roll.ru/menu/tproduct/351561097752-imbir'
+            },
+            {
+                name: 'Васаби',
+                price: 50,
+                img: 'https://optim.tildacdn.com/stor3261-6239-4933-b365-303031646364/-/resize/600x800/-/format/webp/f82784e217c383422c98b4970ce93aff.png.webp',
+                uid: '921582895132',
+                url: 'https://yezhkin-roll.ru/menu/tproduct/921582895132-vasabi'
+            },
+            {
+                name: 'Соевый соус',
+                price: 60,
+                img: 'https://optim.tildacdn.com/stor6239-6137-4034-b936-383135643165/-/resize/600x800/-/format/webp/3b57c15a2f75d9410121c219d1e117b3.jpg.webp',
+                uid: '572601916672',
+                url: 'https://yezhkin-roll.ru/menu/tproduct/572601916672-soevii-sous'
+            }
+        ];
+
         // Upsell Init
         const waitForCart = setInterval(() => {
             const cartContent = document.querySelector('.t706__cartwin-content');
@@ -238,32 +310,53 @@
         }, 500);
 
         function initNovaCart(container) {
-            // Upsell HTML
-            const upsellHTML = `
-            <div class="nova-upsell-wrap">
+            // Check if already exists
+            if (container.querySelector('.nova-upsell-wrap')) return;
+
+            // Generate HTML
+            const itemsHTML = UPSELL_ITEMS.map(item => `
+                <div class="nova-upsell-item" onclick="addToCartUpsell({name:'${item.name}', price:${item.price}, img:'${item.img}', uid:'${item.uid}', url:'${item.url}'})">
+                    <div class="nova-upsell-circle"><img src="${item.img}" alt="${item.name}"></div>
+                    <span class="nova-upsell-name">${item.name}<br>${item.price}₽</span>
+                </div>
+            `).join('');
+
+            const upsellContainer = document.createElement('div');
+            upsellContainer.className = 'nova-upsell-wrap';
+            upsellContainer.innerHTML = `
                 <div class="nova-upsell-title">Добавить к заказу:</div>
                 <div class="nova-upsell-grid">
-                    <div class="nova-upsell-item" onclick="tcart__addProduct({name:'Имбирь', price:30, img:'https://static.tildacdn.com/tild6164-6239-4532-b861-316561623066/11.png'})">
-                        <div class="nova-upsell-circle"><img src="https://static.tildacdn.com/tild6164-6239-4532-b861-316561623066/11.png"></div>
-                        <span class="nova-upsell-name">Имбирь<br>30₽</span>
-                    </div>
-                    <div class="nova-upsell-item" onclick="tcart__addProduct({name:'Васаби', price:30, img:'https://static.tildacdn.com/tild3362-6264-4462-a332-306530656438/Gemini_Generated_Ima.png'})">
-                        <div class="nova-upsell-circle"><img src="https://static.tildacdn.com/tild3362-6264-4462-a332-306530656438/Gemini_Generated_Ima.png"></div>
-                        <span class="nova-upsell-name">Васаби<br>30₽</span>
-                    </div>
-                    <div class="nova-upsell-item" onclick="tcart__addProduct({name:'Соевый соус', price:40, img:'https://static.tildacdn.com/tild3138-6336-4430-b534-363164666433/33.png'})">
-                        <div class="nova-upsell-circle"><img src="https://static.tildacdn.com/tild3138-6336-4430-b534-363164666433/33.png"></div>
-                        <span class="nova-upsell-name">Соевый<br>40₽</span>
-                    </div>
+                    ${itemsHTML}
                 </div>
-            </div>
-        `;
+            `;
+
             const target = container.querySelector('.t706__cartwin-bottom');
-            if (target && !container.querySelector('.nova-upsell-wrap')) {
-                const div = document.createElement('div');
-                div.innerHTML = upsellHTML;
-                target.parentNode.insertBefore(div, target);
+            if (target) {
+                target.parentNode.insertBefore(upsellContainer, target);
             }
         }
     });
+
+    /* === 4. ANALYTICS FIX (OFFLINE PAYMENTS) === */
+    window.t706_onSuccessCallback = function (form) {
+        try {
+            // 1. Get Payment Method
+            // we want to ensure "purchase" is fired for everyone if Tilda doesn't do it for offline.
+
+            // Yandex Metrica ID: 91003929
+            const YM_ID = 91003929;
+            const GOAL_ID = 'purchase';
+
+            // Safely fire Metrica Goal
+            if (typeof ym === 'function') {
+                ym(YM_ID, 'reachGoal', GOAL_ID, {
+                    order_id: form.querySelector('[name="tildapayment[orderid]"]')?.value || 'unknown',
+                    revenue: form.querySelector('[name="tildapayment[amount]"]')?.value || 0
+                });
+                console.log('Antigravity: Manual Purchase Goal Fired');
+            }
+        } catch (e) {
+            console.error('Antigravity Analytics Error:', e);
+        }
+    };
 </script>

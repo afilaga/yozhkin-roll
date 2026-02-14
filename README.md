@@ -40,5 +40,21 @@
 - Сириус
 - **Цены на доставку:** Управляются и обновляются через репозиторий на GitHub.
 
+## 📊 Analytics & CRM Insights (Известные проблемы)
+- **Занижение конверсии (Yandex Metrica / Tilda Stats):**
+  - **Причина:** Заказы с оплатой "при получении" (наличные/карта) или через QR-код остаются в CRM в статусе "Открытая сделка" и не закрываются автоматически.
+  - **Следствие:** Tilda/Metrica не получают сигнал о завершении конверсии (Purchase), так как сделка технически не завершена. Это искусственно занижает показатели конверсии на сайте, хотя фактические продажи есть.
+  - **Решение (Янв 2026):**
+    1.  В настройках Tilda удален "Безналичный расчет" и добавлен стандартный метод **"Наличные"** (Оплата при получении). Это обеспечивает корректное создание сделок в CRM.
+    2.  В `cart.html` внедрен JS-скрипт `t706_onSuccessCallback`, который принудительно отправляет событие `purchase` в Яндекс.Метрику для всех офлайн-заказов.
+
+## ✅ Resolved Issues (Feb 2026)
+- **Order Calculation Error ("BAD FINAL AMOUNT CALC"):**
+  - **Problem:** Orders were rejected by backend validation due to a mismatch in totals caused by a "fake" delivery product (`delivery_service`) injected by the old `module` script.
+  - **Solution:** `module` patched to use Tilda's native `data-delivery-price` mechanism. Added robust cleanup logic to automatically remove the legacy "fake" product from user carts.
+- **Upsell UI Sync (Cart Add-ons):**
+  - **Problem:** "Add to Order" items (Ginger/Wasabi) added to cart data but didn't appear in the list until reload.
+  - **Solution:** Implemented `addToCartUpsell()` in `cart.html` which forces `tcart__openCart()` (redraw) immediately after adding an item.
+
 ---
 *Разработано системно: Смысл → Структура → Реализация.*
